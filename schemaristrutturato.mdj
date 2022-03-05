@@ -615,7 +615,7 @@
 											"top": 69,
 											"width": 175,
 											"height": 13,
-											"text": "-name: string",
+											"text": "-groupName: string",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6320,7 +6320,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF+kQeF6swXtEM="
 							},
-							"name": "name",
+							"name": "groupName",
 							"visibility": "private",
 							"type": "string"
 						},
