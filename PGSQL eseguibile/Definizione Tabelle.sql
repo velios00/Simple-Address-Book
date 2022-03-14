@@ -87,5 +87,5 @@ CREATE TABLE AssignedPhone(
 	phoneNumber CHAR(10) NOT NULL,
 	contactID INTEGER NOT NULL,
 	CONSTRAINT FK_APContactID FOREIGN KEY (ContactId) REFERENCES Contact(contactID) ON DELETE CASCADE,
-	CONSTRAINT FK_phoneNumber FOREIGN KEY(phoneNumber) REFERENCES PhoneNumber(phoneNumber) ON DELETE CASCADE
+	CONSTRAINT FK_phoneNumber FOREIGN KEY(phoneNumber) REFERENCES PhoneNumber(phoneNumber) ON DELETE SET NULL
 );
