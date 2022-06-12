@@ -27,4 +27,13 @@ public class DAOutente {
 		return result;
 	}
 	
+	public void inserisciUtente(String email, String password, String nickName) throws SQLException {
+		
+		conn = ConnessionePG.getInstance().getConnection();
+		PreparedStatement queryInserisciUtente = conn.prepareStatement("INSERT INTO R_user VALUES('"+email+"', '"+password+"', '"+nickName+"', default)");
+		System.out.println(queryInserisciUtente);
+		queryInserisciUtente.executeUpdate();
+		conn.close();
+
+	}
 }

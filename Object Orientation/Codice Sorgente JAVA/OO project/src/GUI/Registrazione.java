@@ -7,13 +7,19 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Controller.Controller;
+import Modello.Utente;
 
 public class Registrazione {
-
+	
+	JTextField text1;
+	JTextField text2;
+	JTextField text3;
+	JTextField text4;
 	
 	Registrazione(Controller controller, JFrame chiamante){
 		
@@ -32,10 +38,10 @@ public class Registrazione {
 		JLabel label2 = new JLabel("Inserisci una password:");
 		JLabel label3 = new JLabel("Inserisci di nuovo la password:");
 		JLabel label4 = new JLabel("Nome utente:");
-		JTextField text1 = new JTextField();
-		JTextField text2 = new JTextField();
-		JTextField text3 = new JTextField();
-		JTextField text4 = new JTextField();
+		text1 = new JTextField();
+		text2 = new JTextField();
+		text3 = new JTextField();
+		text4 = new JTextField();
 		
 		btnIndietro.addActionListener(e -> goBack(chiamante, reg));
 		btnReg.addActionListener(e -> goToHome(controller, chiamante, reg));
@@ -68,9 +74,15 @@ public class Registrazione {
 		reg.dispose();
 	}
 	private void goToHome(Controller controller, JFrame chiamante, JFrame reg) {
-		reg.dispose();
-		new Home(controller, chiamante, null);
-	}
-	
-		
-	}
+		if(text2.getText().equals(text3.getText())) {
+			
+			Utente user = controller.registraUtente(text1.getText(), text2.getText(), text4.getText());
+			if(user != null) {
+				reg.dispose();
+				new Home(controller, chiamante, user);
+			}
+		}
+		else
+			JOptionPane.showMessageDialog(new JFrame(), "Le password non corrispondono!", "Errore", JOptionPane.WARNING_MESSAGE);
+	}	
+}
