@@ -80,7 +80,7 @@ CREATE FUNCTION SetGroupDate()
 RETURNS TRIGGER AS $SetGroupDate$
 	BEGIN
 		UPDATE R_Group as RG
-		SET NEW.creationDate = CURRENT_DATE
+		SET creationDate = CURRENT_DATE
 		WHERE NEW.groupID = RG.groupID;
 		RETURN NEW;
 	END;
