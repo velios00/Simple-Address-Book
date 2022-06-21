@@ -6,9 +6,9 @@ public class NumeriTel {
 	String tipo;
 	boolean reindirizzamento;
 	
-	NumeriTel(String type, String number, String linkedNumber){
+	public NumeriTel(String type, String number, String linkedNumber){
 		numero = number;
 		tipo = type;
-		reindirizzamento = linkedNumber.equals("true");
+		reindirizzamento = linkedNumber.equals("t");
 	}
 }

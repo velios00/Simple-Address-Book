@@ -1,6 +1,9 @@
 package Modello;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import Controller.Controller;
 
 public class Email {
 
@@ -8,10 +11,25 @@ public class Email {
 	boolean main;
 	ArrayList<MessagingAccount> messaging;
 	
-	Email(String newEmail, String principale){
+	public Email(Controller controller, String newEmail, String principale){
 		
 		email = newEmail;
-		main = principale.equals("true");
-		//TODO Inizializzazione array di account
+		main = principale.equals("t");
+		messaging = new ArrayList<MessagingAccount>();
+		try {
+			messaging = controller.caricaMessagingEmail(email);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String getString() {
+		return email;
+	}
+	
+	public boolean main() {
+		return main;
 	}
 }
+
+
