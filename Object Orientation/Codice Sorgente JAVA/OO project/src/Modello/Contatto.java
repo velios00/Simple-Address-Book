@@ -1,7 +1,10 @@
 package Modello;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 import Controller.Controller;
 
@@ -20,7 +23,7 @@ public class Contatto {
 	public Contatto(Controller controller, String name, String surname, String proPicPath, String favorite, String ID){
 		nome = name;
 		cognome = surname;
-		profilePic = proPicPath;
+		profilePic = new File("defaultpic.jpg").getAbsolutePath();
 		contactID = ID;
 		preferito = favorite.equals("t");
 		gruppi = new ArrayList<Gruppo>();
@@ -55,7 +58,14 @@ public class Contatto {
 			if(e.main)
 				email = e.getString();
 		return email;
-		//return emails.get(0).email;
+	}
+	
+	public String getTel(String type) {
+		
+		for(NumeriTel tel : numeri)
+			if(tel.tipo.equals(type))
+				return tel.numero;
+		return "";
 	}
 	
 	public void setGruppi(Utente user) {
@@ -66,5 +76,9 @@ public class Contatto {
 					gruppi.add(group);
 					break;
 				}	
+	}
+	
+	public String getImagePath() {
+		return profilePic;
 	}
 }
