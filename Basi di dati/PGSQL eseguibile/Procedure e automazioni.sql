@@ -135,7 +135,7 @@ EXECUTE PROCEDURE UpdPhoneCall();
 CREATE FUNCTION UpdCallFromAP()
 RETURNS TRIGGER AS $UpdCallFromAP$
 	DECLARE
-		currentUser varchar(10);
+		currentUser varchar(64);
 	BEGIN
 		SELECT Con.r_user into currentUser 
 		FROM Contact as Con
