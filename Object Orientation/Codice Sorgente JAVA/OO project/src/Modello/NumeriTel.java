@@ -11,4 +11,12 @@ public class NumeriTel {
 		tipo = type;
 		reindirizzamento = linkedNumber.equals("t");
 	}
+	
+	public String getNumber() {
+		return numero;
+	}	
+	
+	public String getType() {
+		return tipo;
+	}
 }

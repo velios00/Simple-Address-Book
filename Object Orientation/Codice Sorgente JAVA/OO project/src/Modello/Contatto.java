@@ -15,11 +15,23 @@ public class Contatto {
 	String profilePic;
 	public String contactID;
 	boolean preferito;
-	ArrayList<Gruppo> gruppi;
-	ArrayList<Indirizzo> indirizzi;
-	ArrayList<NumeriTel> numeri;
+	public ArrayList<Gruppo> gruppi;
+	public ArrayList<Indirizzo> indirizzi;
+	public ArrayList<NumeriTel> numeri;
 	public ArrayList<Email> emails;
 	
+	public Contatto(String name, String surname, String proPicPath, String favorite, String ID) {
+		nome = name;
+		cognome = surname;
+		profilePic = new File("defaultpic.jpg").getAbsolutePath();
+		contactID = ID;
+		preferito = favorite.equals("t");
+		gruppi = new ArrayList<Gruppo>();
+		indirizzi = new ArrayList<Indirizzo>();
+		numeri = new ArrayList<NumeriTel>();
+		emails = new ArrayList<Email>();
+	}
+
 	public Contatto(Controller controller, String name, String surname, String proPicPath, String favorite, String ID){
 		nome = name;
 		cognome = surname;
@@ -66,16 +78,6 @@ public class Contatto {
 			if(tel.tipo.equals(type))
 				return tel.numero;
 		return "";
-	}
-	
-	public void setGruppi(Utente user) {
-		
-		for (Gruppo group : user.gruppi)
-			for(Contatto con : group.partecipanti)
-				if (con.contactID == contactID) {
-					gruppi.add(group);
-					break;
-				}	
 	}
 	
 	public String getImagePath() {

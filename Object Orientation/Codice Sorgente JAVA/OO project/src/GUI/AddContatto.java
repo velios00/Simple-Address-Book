@@ -5,47 +5,59 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneLayout;
 
 import Controller.Controller;
+import DAOs.DAOcontatto;
+import Modello.Contatto;
+import Modello.Email;
+import Modello.Indirizzo;
+import Modello.NumeriTel;
 import Modello.Utente;
 
 public class AddContatto extends JFrame{
 	
 	Utente user;
 	Controller controller;
+	LayerContatti chiamante;
+	JTextField nameText;
+	JTextField surnameText;
 	ArrayList<JTextField> mobilesText;
 	ArrayList<JTextField> landlinesText;
 	ArrayList<JTextField> emailsText;
 	ArrayList<ArrayList<JTextField>> addressesText;
 	
-	AddContatto(Controller ctrll, Utente utente){
+	AddContatto(Controller ctrll, Utente utente, LayerContatti caller){
 		
 		user = utente;
 		controller = ctrll;
+		chiamante = caller;
 		mobilesText = new ArrayList<JTextField>();
 		landlinesText = new ArrayList<JTextField>();
 		emailsText = new ArrayList<JTextField>();
 		addressesText = new ArrayList<ArrayList<JTextField>>();
 		JFrame window = new JFrame();
-		
-		
+		JButton btnCrea = new JButton("Crea");
+		btnCrea.setBounds(400, 520, 100, 30);
+		btnCrea.addActionListener(e -> addContact(window));
 		
 		JPanel dataPanel  = new JPanel();
 		dataPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JLabel label1 = new JLabel("Nome");
 		JLabel label2 = new JLabel("Cognome");
-		JTextField nameText = new JTextField();
+		nameText = new JTextField();
 		nameText.setPreferredSize(new Dimension(150, 25));
-		JTextField surnameText = new JTextField();
+		surnameText = new JTextField();
 		surnameText.setPreferredSize(new Dimension(150, 25));
 		dataPanel.add(label1);
 		dataPanel.add(nameText);
@@ -54,12 +66,17 @@ public class AddContatto extends JFrame{
 		dataPanel.setBounds(5, 5, 175, 125);
 		dataPanel.setBackground(Color.GRAY);
 		
-		JPanel numberPanel = createNumberPanel();
+		JPanel mobilePanel = new JPanel();
+		JPanel landlinePanel = new JPanel();
+		JPanel numberPanel = createNumberPanel(mobilePanel, landlinePanel);
 		numberPanel.setPreferredSize(new Dimension(250, 75));
 		JScrollPane scrollNumber = createScrollableFields(5, 150, 250, 100, numberPanel);
-		JButton addNumbers = new JButton("Aggiungi");
-		addNumbers.setBounds(5, 255, 120, 20);
-		addNumbers.addActionListener(e -> addNumberField(numberPanel));
+		JButton addMobile = new JButton("Aggiungi");
+		JButton addLandline = new JButton("Aggiungi");
+		addMobile.setBounds(5, 255, 120, 20);
+		addMobile.addActionListener(e -> addNumberField(numberPanel, mobilePanel, 0));
+		addLandline.setBounds(130, 255, 120, 20);
+		addLandline.addActionListener(e -> addNumberField(numberPanel, landlinePanel, 1));
 		
 		JPanel emailPanel = createEmailPanel();
 		emailPanel.setPreferredSize(new Dimension(190, 75));
@@ -85,8 +102,10 @@ public class AddContatto extends JFrame{
 		window.add(scrollEmail);
 		window.add(scrollAddress);
 		window.add(addEmail);
-		window.add(addNumbers);
+		window.add(addMobile);
+		window.add(addLandline);
 		window.add(addAddress);
+		window.add(btnCrea);
 	}
 	
 	private JScrollPane createScrollableFields(int x, int y, int larg, int lun, JPanel comp) {
@@ -97,15 +116,13 @@ public class AddContatto extends JFrame{
 		return scroll;
 	}
 	
-	private JPanel createNumberPanel() {
+	private JPanel createNumberPanel(JPanel firstPanel1, JPanel firstPanel2) {
 		
 		mobilesText.add(createTextField(100, 25));
 		landlinesText.add(createTextField(100, 25));
 		JTextField mobileText = mobilesText.get(0);
 		JTextField landlineText = landlinesText.get(0);
 		
-		JPanel firstPanel1 = new JPanel();
-		JPanel firstPanel2 = new JPanel();
 		firstPanel1.setPreferredSize(new Dimension(110, 60));
 		firstPanel2.setPreferredSize(new Dimension(110, 60));
 		firstPanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -201,17 +218,20 @@ public class AddContatto extends JFrame{
 		panel.repaint();
 	}
 	
-	private void addNumberField(JPanel panel) {
+	private void addNumberField(JPanel parentPanel, JPanel panel, int type) {
 		
-		JTextField newField1 = createTextField(100, 25);
-		JTextField newField2 = createTextField(100, 25);
-		mobilesText.add(newField1);
-		landlinesText.add(newField2);
-		panel.add(newField1);
-		panel.add(newField2);
+		JTextField newField = createTextField(100, 25);
+		if(type == 0)
+			mobilesText.add(newField);
+		else 
+			landlinesText.add(newField);
+		panel.add(newField);
+		parentPanel.setPreferredSize(new Dimension(parentPanel.getWidth(), parentPanel.getHeight()+30));
 		panel.setPreferredSize(new Dimension(panel.getWidth(), panel.getHeight()+30));
 		panel.revalidate();
+		parentPanel.revalidate();
 		panel.repaint();
+		parentPanel.repaint();
 	}
 	
 	private void addAddressField(JPanel panel) {
@@ -243,7 +263,70 @@ public class AddContatto extends JFrame{
 		panel.revalidate();
 		panel.repaint();
 	}
+	
+	public void addContact(JFrame window) {
+		
+		Contatto nuovoCont;
+		ArrayList<NumeriTel> contNumbers = new ArrayList<NumeriTel>();
+		ArrayList<Indirizzo> contAddress = new ArrayList<Indirizzo>();
+		ArrayList<Email> contEmail = new ArrayList<Email>();
+		//CONTATTO/////////////////////////////////////////////////////////////////////////////
+		if(!(nameText.getText()+surnameText.getText()).isBlank()) {
+			try {
+				nuovoCont = controller.aggiungiContatto(user.email, nameText.getText(), surnameText.getText(), "default", false);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(new JFrame(),"Inserire correttamente il nome del contatto" , "Errore", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		try {
+			//NUMERI MOBILI/////////////////////////////////////////////////////////////////////////////
+			for(JTextField text : mobilesText)
+				if(!text.getText().isBlank())
+					contNumbers.add(controller.getPhoneNumber("MOBILE", text.getText(), false, nuovoCont.contactID));
+			//NUMERI FISSI//////////////////////////////////////////////////////////////////////////////
+			for(JTextField text : landlinesText)
+				if(!text.getText().isBlank())
+					contNumbers.add(controller.getPhoneNumber("LANDLINE", text.getText(), false, nuovoCont.contactID));
+			//INDIRIZZI//////////////////////////////////////////////////////////////////////////////
+			for(ArrayList<JTextField> t : addressesText)
+				if(!isAddressEmpty(t))
+					contAddress.add(controller.getAddress(t.get(0).getText()+", "+t.get(1).getText(), t.get(2).getText(), t.get(3).getText(), t.get(4).getText(), t.get(5).getText(), nuovoCont.contactID, true));
+			//EMAILS//////////////////////////////////////////////////////////////////////////////
+			for(JTextField text : emailsText)
+				if(!text.getText().isBlank())
+					contEmail.add(controller.aggiungiEmail(text.getText(), false, nuovoCont.contactID));
+		} catch (SQLException e) {
+			new DAOcontatto().eliminaContatto(nuovoCont.contactID);
+			if(e.getMessage().contains("emailformat"))
+				JOptionPane.showMessageDialog(new JFrame(),"Indirizzo E-mail non valido" , "Errore", JOptionPane.WARNING_MESSAGE);
+			else if(e.getMessage().contains("character(2)"))
+				JOptionPane.showMessageDialog(new JFrame(),"Indirizzo non inserito correttamente" , "Errore", JOptionPane.WARNING_MESSAGE);
+			else
+				e.printStackTrace();
+			return;
+		}
+
+		//INSERIMENTO////////////////////////////////////////////////////////////////////////////
+		nuovoCont.numeri = contNumbers;
+		nuovoCont.indirizzi = contAddress;
+		nuovoCont.emails = contEmail;
+		user.contatti.add(nuovoCont);
+		chiamante.aggiornaContatti();
+		window.dispose();
+	}
+	
+	private boolean isAddressEmpty(ArrayList<JTextField> address) {
+		
+		String str = new String(address.get(0).getText()+address.get(1).getText()+address.get(2).getText());
+		return str.isBlank();
+	}
 }
+
 
 
 

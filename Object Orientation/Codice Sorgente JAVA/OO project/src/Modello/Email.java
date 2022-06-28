@@ -27,6 +27,10 @@ public class Email {
 		return email;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	
 	public boolean main() {
 		return main;
 	}

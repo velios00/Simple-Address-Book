@@ -17,23 +17,30 @@ import javax.swing.JPanel;
 
 import Controller.Controller;
 import Modello.Contatto;
+import Modello.Email;
 import Modello.Gruppo;
+import Modello.Indirizzo;
+import Modello.NumeriTel;
 
 public class JContactLabel extends JPanel implements MouseListener{
 	
 	Contatto con;
 	Controller controller;
+	LayerContatti home;
 	JPanel showPanel;
+	public Color defaultColor;
 	
-	JContactLabel(Controller ctrll, Contatto contact, JPanel mostraPanel) {
+	JContactLabel(Controller ctrll, LayerContatti parentPanel, Contatto contact, JPanel mostraPanel) {
 		
 		con = contact;
 		controller = ctrll;
+		home = parentPanel;
 		showPanel = mostraPanel;
+		defaultColor = new Color(235, 239, 247);
 		this.addMouseListener(this);
 		
 		this.setLayout(new GridLayout(1, 5, 2, 0));
-		this.setBackground(new Color(235, 239, 247));
+		this.setBackground(defaultColor);
 		
 		String email = null, mobile = null, landline = null;
 		email = con.getMainEmail();
@@ -60,24 +67,63 @@ public class JContactLabel extends JPanel implements MouseListener{
 		return showPanel;
 	}
 	
+	public void setPanel(JPanel panel) {
+		
+		showPanel = panel;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
 		showPanel.removeAll();
 		showPanel.revalidate();
 		showPanel.repaint();
+		if(home.getSelectedLabel() != null) {
+			home.getSelectedLabel().defaultColor = defaultColor;
+			home.getSelectedLabel().setBackground(defaultColor);
+		}
+		home.setSelectedLabel(this);
+		defaultColor = Color.WHITE;
 		
+		JPanel namePanel = new JPanel();
 		Image image = new ImageIcon(con.getImagePath()).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-		ImageIcon pic = new ImageIcon(image);
+		JPanel mobilePanel = new JPanel();
+		JPanel landlinePanel = new JPanel();
+		JPanel groupPanel = new JPanel();
+		JPanel emailPanel = new JPanel();
+		JPanel addressPanel = new JPanel();
 		
+		namePanel.add(new JLabel(con.getName()+" "+ con.getSurname()));
+		
+		ImageIcon pic = new ImageIcon(image);
 		JLabel imageLabel = new JLabel();
 		imageLabel.setIcon(pic);
 		
+		for(NumeriTel tel : con.numeri) {
+			if(tel.getType().equals("MOBILE"))
+				mobilePanel.add(new JLabel(tel.getNumber()));
+			else
+				landlinePanel.add(new JLabel(tel.getNumber()));
+		}
+			
 		for(Gruppo group : con.getGruppi()) {
 			JLabel label = new JLabel(group.getName());
-			showPanel.add(label);
+			groupPanel.add(label);
 		}
+		
+		for(Email em : con.emails)
+			emailPanel.add(new JLabel(em.getEmail()));
+		
+		for(Indirizzo i : con.indirizzi)
+			addressPanel.add(new JLabel(i.getString()));
+		
+		showPanel.add(namePanel);
 		showPanel.add(imageLabel);
+		showPanel.add(mobilePanel);
+		showPanel.add(landlinePanel);
+		showPanel.add(groupPanel);
+		showPanel.add(emailPanel);
+		showPanel.add(addressPanel);
 	}
 
 	@Override
@@ -103,7 +149,7 @@ public class JContactLabel extends JPanel implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 		JPanel panel = (JPanel) e.getSource();
-		panel.setBackground(new Color(235, 239, 247));
+		panel.setBackground(defaultColor);
 		
 	}
 }

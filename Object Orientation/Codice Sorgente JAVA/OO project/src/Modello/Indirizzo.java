@@ -17,6 +17,6 @@ public class Indirizzo {
 	}
 	
 	public String getString() {
-		return new String(strada+"\n"+CAP+", "+citta+" ("+provincia+")"+"\n"+nazione);
+		return new String("<html>"+strada+"<br/>"+CAP+", "+citta+" ("+provincia+")"+"<br/>"+nazione+"</html>");
 	}
 }
