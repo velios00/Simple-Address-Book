@@ -235,6 +235,6 @@ public class Controller {
 	public Email aggiungiEmail(String email, Boolean main, String contactID) throws SQLException {
 
 		new DAOcontatto().inserisciEmail(email, main, contactID);
-		return new Email(this, contactID, main.toString());
+		return new Email(this, email, main.toString());
 	}
 }

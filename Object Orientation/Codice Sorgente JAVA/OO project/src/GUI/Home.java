@@ -60,7 +60,7 @@ public class Home extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.setTitle("Rubrica");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1220, 800);
+		this.setSize(1060, 720);
 		this.add(sidePanel, BorderLayout.WEST);
 		mainPanel = contattiPanel;
 		this.add(mainPanel, BorderLayout.CENTER);

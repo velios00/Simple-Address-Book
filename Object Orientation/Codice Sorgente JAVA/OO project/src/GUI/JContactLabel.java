@@ -86,7 +86,7 @@ public class JContactLabel extends JPanel implements MouseListener{
 		defaultColor = Color.WHITE;
 		
 		JPanel namePanel = new JPanel();
-		Image image = new ImageIcon(con.getImagePath()).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		Image image = new ImageIcon(con.getImagePath()).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
 		JPanel mobilePanel = new JPanel();
 		JPanel landlinePanel = new JPanel();
 		JPanel groupPanel = new JPanel();

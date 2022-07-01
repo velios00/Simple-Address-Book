@@ -23,7 +23,7 @@ public class Contatto {
 	public Contatto(String name, String surname, String proPicPath, String favorite, String ID) {
 		nome = name;
 		cognome = surname;
-		profilePic = new File("defaultpic.jpg").getAbsolutePath();
+		profilePic = new File(ifDefaultPic(proPicPath)).getAbsolutePath();
 		contactID = ID;
 		preferito = favorite.equals("t");
 		gruppi = new ArrayList<Gruppo>();
@@ -35,9 +35,9 @@ public class Contatto {
 	public Contatto(Controller controller, String name, String surname, String proPicPath, String favorite, String ID){
 		nome = name;
 		cognome = surname;
-		profilePic = new File("defaultpic.jpg").getAbsolutePath();
+		profilePic = new File(ifDefaultPic(proPicPath)).getAbsolutePath();
 		contactID = ID;
-		preferito = favorite.equals("t");
+		preferito = (favorite.equals("t") || favorite.equals("true"));
 		gruppi = new ArrayList<Gruppo>();
 		indirizzi = new ArrayList<Indirizzo>();
 		numeri = new ArrayList<NumeriTel>();
@@ -82,5 +82,13 @@ public class Contatto {
 	
 	public String getImagePath() {
 		return profilePic;
+	}
+	
+	public String ifDefaultPic(String str) {
+		
+		if(str.equals("C:\\Users\\Velios\\Desktop\\Uni\\cd\\defaultpic"))
+			return new String("defaultpic.jpg");
+		else
+			return str;
 	}
 }
