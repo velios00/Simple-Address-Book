@@ -237,4 +237,36 @@ public class Controller {
 		new DAOcontatto().inserisciEmail(email, main, contactID);
 		return new Email(this, email, main.toString());
 	}
+	
+	public ArrayList<Contatto> searchContactList(ArrayList<Contatto> contactList, String str) {
+		
+		ArrayList<Contatto> tmpList = new ArrayList<Contatto>();
+		for(Contatto con : contactList)
+			if(con.getName().toLowerCase().contains(str.toLowerCase())) {
+				tmpList.add(con);
+				break;
+			}
+		for(Contatto con : contactList) 
+			if(con.getSurname().toLowerCase().contains(str.toLowerCase())) {
+				tmpList.add(con);
+				break;
+			}
+		for(Contatto con : contactList)
+			for(NumeriTel tel : con.numeri)
+				if(tel.getNumber().toLowerCase().contains(str.toLowerCase())) {
+					tmpList.add(con);
+					break;
+				}
+		for(Contatto con : contactList)
+			for(Email e : con.emails)
+				if(e.getString().toLowerCase().contains(str.toLowerCase())) {
+					tmpList.add(con);
+					break;
+				}
+		for(Contatto con : contactList)
+			for(Indirizzo ind : con.indirizzi)
+				if(ind.getString().toLowerCase().contains(str.toLowerCase()))
+					tmpList.add(con);
+		return tmpList;
+	}
 }

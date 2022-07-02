@@ -14,9 +14,14 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Controller.Controller;
 import Modello.Contatto;
+import Modello.Email;
+import Modello.Gruppo;
+import Modello.Indirizzo;
+import Modello.NumeriTel;
 import Modello.Utente;
 
 public class LayerContatti extends JPanel {
@@ -28,6 +33,8 @@ public class LayerContatti extends JPanel {
 	JPanel topPanel;
 	ArrayList<Contatto> contactList;
 	JContactLabel selectedLabel;
+	JComboBox filterBox;
+	JComboBox sortBox;
 	
 	public LayerContatti(Utente user, Controller ctrll) {
 		
@@ -37,7 +44,6 @@ public class LayerContatti extends JPanel {
 		showPanel = blankPanel();
 		listPanel = new JPanel();
 		topPanel = new JPanel();
-		contactList = (ArrayList<Contatto>) utente.contatti.clone();
 		selectedLabel = null;
 		
 		JButton addButton = new JButton("Crea nuovo");
@@ -57,7 +63,8 @@ public class LayerContatti extends JPanel {
 		listPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 3));
 		listPanel.add(creaSearchPanel());
 		listPanel.add(creaLegenda());
-		sortContactsBy("Nome");
+		resetContactList();
+		aggiornaContatti();
 		
 		this.setLayout(new BorderLayout());
 		this.add(topPanel, BorderLayout.NORTH);
@@ -81,15 +88,21 @@ public class LayerContatti extends JPanel {
 		}
 	}
 	
-	public void aggiornaContatti() {
+	public void refreshListPanel() {
 		int count = listPanel.getComponentCount()-1;
 		while(count > 1)
 			listPanel.remove(count--);
 
 		for(Contatto con : contactList)
 			listPanel.add(new JContactLabel(controller,  this, con, showPanel));
+		
 		listPanel.repaint();
 		listPanel.revalidate();
+	}
+	
+	public void aggiornaContatti() {
+		sortContactsBy(sortBox.getSelectedItem().toString());
+		refreshListPanel();
 	}
 	
 	public void setSelectedLabel(JContactLabel label) {
@@ -134,22 +147,85 @@ public class LayerContatti extends JPanel {
 		else {
 			contactList.sort((c1, c2) -> c1.getMainEmail().compareTo(c2.getMainEmail()));
 		}
-		aggiornaContatti();
 	}
 	
 	private JPanel creaSearchPanel() {
 		
 		JPanel searchPanel = new JPanel();
 		String[] option = {"Nome", "Cognome", "E-mail"};
-		JComboBox box = new JComboBox(option);
-		box.addActionListener(e -> sortContactsBy(box.getSelectedItem().toString()));
+		sortBox = new JComboBox(option);
+		filterBox = creaFilterBox();
+		JTextField search = new JTextField();
+		search.setPreferredSize(new Dimension(100, 25));
+		JButton btnSearch = new JButton("Cerca");
+		btnSearch.addActionListener(e -> cercaCont(search, searchPanel));
+		sortBox.addActionListener(e -> aggiornaContatti());
+		filterBox.addActionListener(e -> showFiltered());
 		
 		searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		searchPanel.setPreferredSize(new Dimension(500, 40));
 		searchPanel.setBackground(new Color(200, 200, 200));
+		searchPanel.add(new JLabel("Mostra: "));
+		searchPanel.add(filterBox);
 		searchPanel.add(new JLabel("Ordina per: "));
-		searchPanel.add(box);
+		searchPanel.add(sortBox);
+		searchPanel.add(search);
+		searchPanel.add(btnSearch);
 		return searchPanel;
+	}
+	
+	private void cercaCont(JTextField field, JPanel panel) {
+		
+		String str = field.getText();
+		if(str.isBlank()) {
+			resetContactList();
+			aggiornaContatti();
+			return;
+		}
+
+		resetContactList();
+		ArrayList<Contatto> tmpList = controller.searchContactList(contactList, str);
+		field.setText("");
+		contactList = tmpList;
+		refreshListPanel();
+	}
+	
+	private void resetContactList() {
+		contactList = (ArrayList<Contatto>) filterContact().clone();
+	}
+	
+	private JComboBox creaFilterBox() {
+		
+		JComboBox box = new JComboBox();
+		box.addItem(new String("Tutti"));
+		box.addItem(new String("Preferiti"));
+		for(Gruppo g : utente.getGruppi())
+			box.addItem(g.getName());
+		box.setSelectedIndex(0);
+		return box;
+	}
+	
+	private ArrayList<Contatto> filterContact(){
+		
+		String item = filterBox.getSelectedItem().toString();
+		if(item.equals("Tutti"))
+			return utente.contatti;
+		if(item.equals("Preferiti")) {
+			ArrayList<Contatto> list = new ArrayList<Contatto>();
+			for(Contatto con : utente.contatti)
+				if(con.isFavorite())
+					list.add(con);
+			return list;
+		}
+		for(Gruppo g : utente.getGruppi())
+			if(item.equals(g.getName()))
+				return g.getPartecipanti();
+		return null;	
+	}
+	
+	private void showFiltered() {
+		resetContactList();
+		refreshListPanel();
 	}
 }
 

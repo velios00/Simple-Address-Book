@@ -91,4 +91,7 @@ public class Contatto {
 		else
 			return str;
 	}
+	public boolean isFavorite() {
+		return preferito;
+	}
 }
