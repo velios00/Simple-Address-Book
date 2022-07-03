@@ -7,13 +7,15 @@ public class Indirizzo {
 	String citta;
 	String provincia;
 	String nazione;
+	public boolean main;
 	
-	public Indirizzo(String street, String zipCode, String city, String province, String country){
+	public Indirizzo(String street, String zipCode, String city, String province, String country, String principale){
 		strada = street;
 		CAP = zipCode;
 		citta = city;
 		provincia = province;
 		nazione = country;
+		main = (principale.equals("t")  || principale.equals("true"));
 	}
 	
 	public String getString() {

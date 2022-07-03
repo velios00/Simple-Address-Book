@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,10 +16,7 @@ import javax.swing.JTextField;
 
 import Controller.Controller;
 import Modello.Contatto;
-import Modello.Email;
 import Modello.Gruppo;
-import Modello.Indirizzo;
-import Modello.NumeriTel;
 import Modello.Utente;
 
 public class LayerContatti extends JPanel {
@@ -33,6 +28,8 @@ public class LayerContatti extends JPanel {
 	JPanel topPanel;
 	ArrayList<Contatto> contactList;
 	JContactLabel selectedLabel;
+	public JButton eliminaButton;
+	public JButton modificaButton;
 	JComboBox filterBox;
 	JComboBox sortBox;
 	
@@ -47,10 +44,13 @@ public class LayerContatti extends JPanel {
 		selectedLabel = null;
 		
 		JButton addButton = new JButton("Crea nuovo");
-		JButton eliminaButton = new JButton("Elimina");
-		JButton modificaButton = new JButton("Modifica");
 		addButton.addActionListener(e -> aggiungiContatto());
+		eliminaButton = new JButton("Elimina");
+		modificaButton = new JButton("Modifica");
 		eliminaButton.addActionListener(e -> eliminaContatto());
+		eliminaButton.setEnabled(false);
+		modificaButton.setEnabled(false);
+		
 		topPanel.setBackground(new Color(200, 200, 200));
 		topPanel.setPreferredSize(new Dimension(100, 50));
 		topPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -84,7 +84,9 @@ public class LayerContatti extends JPanel {
 			controller.eliminaContatto(selectedLabel.con.contactID);
 			int index = utente.contatti.indexOf(selectedLabel.con);
 			utente.contatti.remove(index);
-			aggiornaContatti();
+			eliminaButton.setEnabled(false);
+			modificaButton.setEnabled(false);
+			showFiltered();
 		}
 	}
 	
@@ -223,7 +225,7 @@ public class LayerContatti extends JPanel {
 		return null;	
 	}
 	
-	private void showFiltered() {
+	public void showFiltered() {
 		resetContactList();
 		refreshListPanel();
 	}

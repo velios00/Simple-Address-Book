@@ -25,7 +25,7 @@ public class Contatto {
 		cognome = surname;
 		profilePic = new File(ifDefaultPic(proPicPath)).getAbsolutePath();
 		contactID = ID;
-		preferito = favorite.equals("t");
+		preferito = (favorite.equals("t")  || favorite.equals("true"));
 		gruppi = new ArrayList<Gruppo>();
 		indirizzi = new ArrayList<Indirizzo>();
 		numeri = new ArrayList<NumeriTel>();

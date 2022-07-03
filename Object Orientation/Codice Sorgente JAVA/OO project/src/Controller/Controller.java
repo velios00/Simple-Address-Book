@@ -104,7 +104,7 @@ public class Controller {
 		ArrayList<Indirizzo> addresses = new ArrayList<Indirizzo>();
 		ResultSet result = new DAOcontatto().cercaIndirizzi(contactID);
 		while(result.next()) {
-			Indirizzo currAD = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+			Indirizzo currAD = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(9));
 			addresses.add(currAD);
 		}
 		return addresses;
@@ -222,10 +222,10 @@ public class Controller {
 		DAOcontatto dao = new DAOcontatto();
 		ResultSet result = dao.cercaAddress(street, cap);
 		if(result.next())
-			address = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
+			address = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), main.toString());
 		else 
 		{
-			address = new Indirizzo(street, cap, citta, province, naz);
+			address = new Indirizzo(street, cap, citta, province, naz, main.toString());
 			dao.inserisciAddress(street, cap, citta, province, naz);
 		}
 		dao.inserisciAssignedAddress(contactID, street, cap, main);

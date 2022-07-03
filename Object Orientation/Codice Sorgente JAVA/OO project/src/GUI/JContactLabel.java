@@ -2,15 +2,18 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -78,51 +81,95 @@ public class JContactLabel extends JPanel implements MouseListener{
 		showPanel.removeAll();
 		showPanel.revalidate();
 		showPanel.repaint();
+		showPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		if(home.getSelectedLabel() != null) {
 			home.getSelectedLabel().defaultColor = defaultColor;
 			home.getSelectedLabel().setBackground(defaultColor);
 		}
 		home.setSelectedLabel(this);
+		home.eliminaButton.setEnabled(true);
+		home.modificaButton.setEnabled(true);
 		defaultColor = Color.WHITE;
 		
-		JPanel namePanel = new JPanel();
 		Image image = new ImageIcon(con.getImagePath()).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
-		JPanel mobilePanel = new JPanel();
-		JPanel landlinePanel = new JPanel();
-		JPanel groupPanel = new JPanel();
-		JPanel emailPanel = new JPanel();
+		JLabel mobileLabel = new JLabel("<html><font size=\"+1\">Cellulare</font><br/>");
+		JLabel landlineLabel = new JLabel("<html><font size=\"+1\">Telefono</font><br/>");
+		JLabel groupLabel = new JLabel("<html><font size=\"+1\">Gruppi</font><br/>");
+		JLabel emailLabel = new JLabel("<html><font size=\"+1\">Email</font><br/>");
 		JPanel addressPanel = new JPanel();
 		
-		namePanel.add(new JLabel(con.getName()+" "+ con.getSurname()));
+		JLabel nameLabel = new JLabel(con.getName()+" "+ con.getSurname());
+		nameLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
+		nameLabel.setPreferredSize(new Dimension(300, 40));
 		
 		ImageIcon pic = new ImageIcon(image);
 		JLabel imageLabel = new JLabel();
 		imageLabel.setIcon(pic);
 		
+		mobileLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		mobileLabel.setVerticalAlignment(JLabel.TOP);
+		landlineLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		landlineLabel.setVerticalAlignment(JLabel.TOP);
 		for(NumeriTel tel : con.numeri) {
 			if(tel.getType().equals("MOBILE"))
-				mobilePanel.add(new JLabel(tel.getNumber()));
+				mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"<br/>");
 			else
-				landlinePanel.add(new JLabel(tel.getNumber()));
+				landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"<br/>");
 		}
-			
-		for(Gruppo group : con.getGruppi()) {
-			JLabel label = new JLabel(group.getName());
-			groupPanel.add(label);
-		}
+		mobileLabel.setText(mobileLabel.getText()+"</html>");
+		mobileLabel.setPreferredSize(new Dimension(130, 100));
+		landlineLabel.setText(landlineLabel.getText()+"</html>");
+		landlineLabel.setPreferredSize(new Dimension(130, 100));
+		mobileLabel.setOpaque(true);
+		landlineLabel.setOpaque(true);
 		
+		groupLabel.setVerticalAlignment(JLabel.TOP);
+		groupLabel.setHorizontalAlignment(JLabel.RIGHT);
+		groupLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		for(Gruppo group : con.getGruppi())
+			groupLabel.setText(groupLabel.getText()+group.getName()+"<br/>");
+		groupLabel.setText(groupLabel.getText()+"</html>");
+		groupLabel.setPreferredSize(new Dimension(150, 100));
+		groupLabel.setOpaque(true);
+		
+		emailLabel.setVerticalAlignment(JLabel.TOP);
+		emailLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
 		for(Email em : con.emails)
-			emailPanel.add(new JLabel(em.getEmail()));
+			if(em.main())
+				emailLabel.setText(emailLabel.getText()+"<b>"+em.getString()+"</b><br/>");
+			else
+				emailLabel.setText(emailLabel.getText()+em.getString()+"<br/>");
+		emailLabel.setText(emailLabel.getText()+"</html>");
+		emailLabel.setPreferredSize(new Dimension(220, 140));
+		emailLabel.setOpaque(true);
 		
-		for(Indirizzo i : con.indirizzi)
-			addressPanel.add(new JLabel(i.getString()));
+		addressPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
+		addressPanel.setPreferredSize(new Dimension(430, 220));
+		JLabel addressTitleLabel = new JLabel("<html><font size=\"+1\">Indirizzo</font></html>");
+		addressTitleLabel.setVerticalAlignment(JLabel.TOP);
+		addressTitleLabel.setPreferredSize(new Dimension(430, 20));
+		addressTitleLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+		addressPanel.add(addressTitleLabel);
+		//addressLabel.setVerticalAlignment(JLabel.TOP);
+		for(Indirizzo i : con.indirizzi) {
+			JLabel currLabel = new JLabel();
+			currLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+			if(i.main)
+				currLabel.setText("<html><b>"+i.getString()+"</b></html>\"");
+			else
+				currLabel.setText(i.getString());
+			addressPanel.add(currLabel);
+			JLabel separator = new JLabel();
+			separator.setPreferredSize(new Dimension(20, 1));
+			addressPanel.add(separator);
+		}
 		
-		showPanel.add(namePanel);
+		showPanel.add(nameLabel);
 		showPanel.add(imageLabel);
-		showPanel.add(mobilePanel);
-		showPanel.add(landlinePanel);
-		showPanel.add(groupPanel);
-		showPanel.add(emailPanel);
+		showPanel.add(mobileLabel);
+		showPanel.add(landlineLabel);
+		showPanel.add(groupLabel);
+		showPanel.add(emailLabel);
 		showPanel.add(addressPanel);
 	}
 

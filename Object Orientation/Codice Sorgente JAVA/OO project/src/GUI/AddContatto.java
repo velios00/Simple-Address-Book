@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneLayout;
 
 import Controller.Controller;
 import DAOs.DAOcontatto;
@@ -488,7 +486,7 @@ public class AddContatto extends JFrame{
 		nuovoCont.indirizzi = contAddress;
 		nuovoCont.emails = contEmail;
 		user.contatti.add(nuovoCont);
-		chiamante.aggiornaContatti();
+		chiamante.showFiltered();
 		window.dispose();
 	}
 	
