@@ -14,7 +14,7 @@ public class Email {
 	public Email(Controller controller, String newEmail, String principale){
 		
 		email = newEmail;
-		main = (principale.equals("t")  || principale.equals("true"));
+		main = principale.equals("t");
 		messaging = new ArrayList<MessagingAccount>();
 		try {
 			messaging = controller.caricaMessagingEmail(email);
@@ -24,10 +24,6 @@ public class Email {
 	}
 	
 	public String getString() {
-		return email;
-	}
-	
-	public String getEmail() {
 		return email;
 	}
 	

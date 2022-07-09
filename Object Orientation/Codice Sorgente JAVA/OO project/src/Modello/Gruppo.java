@@ -46,8 +46,4 @@ public class Gruppo {
 	public String getName() {
 		return nome;
 	}
-	
-	public ArrayList<Contatto> getPartecipanti() {
-		return partecipanti;
-	}
 }

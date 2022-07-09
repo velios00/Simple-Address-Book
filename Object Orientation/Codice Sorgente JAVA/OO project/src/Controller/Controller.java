@@ -104,7 +104,7 @@ public class Controller {
 		ArrayList<Indirizzo> addresses = new ArrayList<Indirizzo>();
 		ResultSet result = new DAOcontatto().cercaIndirizzi(contactID);
 		while(result.next()) {
-			Indirizzo currAD = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(9));
+			Indirizzo currAD = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5));
 			addresses.add(currAD);
 		}
 		return addresses;
@@ -184,89 +184,5 @@ public class Controller {
 			conIDs.add(currID);
 		}
 		return conIDs;
-	}
-	
-	public Contatto aggiungiContatto(String userEmail, String nome, String cognome, String profilePic, Boolean fav) throws SQLException {
-		
-		ResultSet result;
-		result = new DAOcontatto().inserisciContatto(userEmail, nome, cognome, profilePic, fav);
-		result.next();
-		return new Contatto(nome, cognome, profilePic, fav.toString(), result.getString(1));
-	}
-	
-	public void eliminaContatto(String ID) {
-		
-		new DAOcontatto().eliminaContatto(ID);
-	}
-	
-	public NumeriTel getPhoneNumber(String type, String numero, Boolean linkednumber, String contactID) throws SQLException {
-		
-		NumeriTel tel;
-		DAOcontatto dao = new DAOcontatto();
-		ResultSet result = dao.cercaPhoneNumber(numero);
-		if(result.next()) {
-			tel = new NumeriTel(result.getString(1), result.getString(2), result.getString(3));
-		}
-		else 
-		{
-			tel = new NumeriTel(type, numero, linkednumber.toString());
-			dao.inserisciPhoneNumber(type, numero, linkednumber);
-		}
-		dao.inserisciAssignedPhone(numero, contactID);
-		return tel;
-	}
-	
-	public Indirizzo getAddress(String street, String cap, String citta, String province, String naz, String contactID, Boolean main) throws SQLException {
-		
-		Indirizzo address;
-		DAOcontatto dao = new DAOcontatto();
-		ResultSet result = dao.cercaAddress(street, cap);
-		if(result.next())
-			address = new Indirizzo(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), main.toString());
-		else 
-		{
-			address = new Indirizzo(street, cap, citta, province, naz, main.toString());
-			dao.inserisciAddress(street, cap, citta, province, naz);
-		}
-		dao.inserisciAssignedAddress(contactID, street, cap, main);
-		return address;
-	}
-	
-	public Email aggiungiEmail(String email, Boolean main, String contactID) throws SQLException {
-
-		new DAOcontatto().inserisciEmail(email, main, contactID);
-		return new Email(this, email, main.toString());
-	}
-	
-	public ArrayList<Contatto> searchContactList(ArrayList<Contatto> contactList, String str) {
-		
-		ArrayList<Contatto> tmpList = new ArrayList<Contatto>();
-		for(Contatto con : contactList)
-			if(con.getName().toLowerCase().contains(str.toLowerCase())) {
-				tmpList.add(con);
-				break;
-			}
-		for(Contatto con : contactList) 
-			if(con.getSurname().toLowerCase().contains(str.toLowerCase())) {
-				tmpList.add(con);
-				break;
-			}
-		for(Contatto con : contactList)
-			for(NumeriTel tel : con.numeri)
-				if(tel.getNumber().toLowerCase().contains(str.toLowerCase())) {
-					tmpList.add(con);
-					break;
-				}
-		for(Contatto con : contactList)
-			for(Email e : con.emails)
-				if(e.getString().toLowerCase().contains(str.toLowerCase())) {
-					tmpList.add(con);
-					break;
-				}
-		for(Contatto con : contactList)
-			for(Indirizzo ind : con.indirizzi)
-				if(ind.getString().toLowerCase().contains(str.toLowerCase()))
-					tmpList.add(con);
-		return tmpList;
 	}
 }

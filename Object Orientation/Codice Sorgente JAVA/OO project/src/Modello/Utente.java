@@ -35,8 +35,5 @@ public class Utente {
 		return note;
 	}
 	
-	public ArrayList<Gruppo> getGruppi() {
-		return gruppi;
-	}
 	//TODO Inizializzazione array
 }

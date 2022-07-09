@@ -9,14 +9,6 @@ public class NumeriTel {
 	public NumeriTel(String type, String number, String linkedNumber){
 		numero = number;
 		tipo = type;
-		reindirizzamento = (linkedNumber.equals("t") || linkedNumber.equals("true"));
-	}
-	
-	public String getNumber() {
-		return numero;
-	}	
-	
-	public String getType() {
-		return tipo;
+		reindirizzamento = linkedNumber.equals("t");
 	}
 }

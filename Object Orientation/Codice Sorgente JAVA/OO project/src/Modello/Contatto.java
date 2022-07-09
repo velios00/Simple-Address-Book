@@ -15,29 +15,17 @@ public class Contatto {
 	String profilePic;
 	public String contactID;
 	boolean preferito;
-	public ArrayList<Gruppo> gruppi;
-	public ArrayList<Indirizzo> indirizzi;
-	public ArrayList<NumeriTel> numeri;
+	ArrayList<Gruppo> gruppi;
+	ArrayList<Indirizzo> indirizzi;
+	ArrayList<NumeriTel> numeri;
 	public ArrayList<Email> emails;
 	
-	public Contatto(String name, String surname, String proPicPath, String favorite, String ID) {
-		nome = name;
-		cognome = surname;
-		profilePic = new File(ifDefaultPic(proPicPath)).getAbsolutePath();
-		contactID = ID;
-		preferito = (favorite.equals("t")  || favorite.equals("true"));
-		gruppi = new ArrayList<Gruppo>();
-		indirizzi = new ArrayList<Indirizzo>();
-		numeri = new ArrayList<NumeriTel>();
-		emails = new ArrayList<Email>();
-	}
-
 	public Contatto(Controller controller, String name, String surname, String proPicPath, String favorite, String ID){
 		nome = name;
 		cognome = surname;
-		profilePic = new File(ifDefaultPic(proPicPath)).getAbsolutePath();
+		profilePic = new File("defaultpic.jpg").getAbsolutePath();
 		contactID = ID;
-		preferito = (favorite.equals("t") || favorite.equals("true"));
+		preferito = favorite.equals("t");
 		gruppi = new ArrayList<Gruppo>();
 		indirizzi = new ArrayList<Indirizzo>();
 		numeri = new ArrayList<NumeriTel>();
@@ -80,18 +68,17 @@ public class Contatto {
 		return "";
 	}
 	
-	public String getImagePath() {
-		return profilePic;
+	public void setGruppi(Utente user) {
+		
+		for (Gruppo group : user.gruppi)
+			for(Contatto con : group.partecipanti)
+				if (con.contactID == contactID) {
+					gruppi.add(group);
+					break;
+				}	
 	}
 	
-	public String ifDefaultPic(String str) {
-		
-		if(str.equals("C:\\Users\\Velios\\Desktop\\Uni\\cd\\defaultpic"))
-			return new String("defaultpic.jpg");
-		else
-			return str;
-	}
-	public boolean isFavorite() {
-		return preferito;
+	public String getImagePath() {
+		return profilePic;
 	}
 }
