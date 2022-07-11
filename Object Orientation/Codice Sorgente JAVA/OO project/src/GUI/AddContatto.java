@@ -54,6 +54,7 @@ public class AddContatto extends JFrame{
 	
 	AddContatto(Controller ctrll, Utente utente, LayerContatti caller){
 		
+		super();
 		user = utente;
 		controller = ctrll;
 		chiamante = caller;
@@ -70,17 +71,17 @@ public class AddContatto extends JFrame{
 		emailsBtn = new ArrayList<JRadioButton>();
 		addressesBtn = new ArrayList<JRadioButton>();
 		profilePicPath = new String("C:\\Users\\Velios\\Desktop\\Uni\\cd\\defaultpic");
-		JFrame window = new JFrame();
+		JPanel window = new JPanel();
 		JButton btnCrea = new JButton("Crea");
-		btnCrea.setBounds(400, 520, 100, 30);
-		btnCrea.addActionListener(e -> addContact(window));
+		btnCrea.setBounds(395, 520, 125, 50);
+		btnCrea.addActionListener(e -> addContact());
 		
-		ImageIcon image = new ImageIcon(new ImageIcon("defaultpic.jpg").getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+		ImageIcon image = new ImageIcon(new ImageIcon("defaultpic.jpg").getImage().getScaledInstance(190, 190, Image.SCALE_SMOOTH));
 		imageLabel = new JLabel();
 		imageLabel.setIcon(image);
-		imageLabel.setBounds(350, 5, 120, 120);
+		imageLabel.setBounds(330, 5, 190, 190);
 		JButton btnSelectPic = new JButton("Seleziona...");
-		btnSelectPic.setBounds(350, 130, 100, 30);
+		btnSelectPic.setBounds(420, 200, 100, 25);
 		btnSelectPic.addActionListener(e -> selectImage());
 		
 		JPanel dataPanel  = new JPanel();
@@ -95,55 +96,50 @@ public class AddContatto extends JFrame{
 		dataPanel.add(nameText);
 		dataPanel.add(label2);
 		dataPanel.add(surnameText);
-		dataPanel.setBounds(5, 5, 175, 125);
-		dataPanel.setBackground(Color.GRAY);
+		dataPanel.setBounds(10, 5, 175, 115);
 		
 		favBox = new JCheckBox("Preferiti");
-		favBox.setBounds(180, 80, 100, 30);
+		favBox.setBounds(20, 120, 100, 30);
 		
 		JPanel mobilePanel = new JPanel();
 		JPanel landlinePanel = new JPanel();
 		JPanel numberPanel = createNumberPanel(mobilePanel, landlinePanel);
 		numberPanel.setPreferredSize(new Dimension(250, 75));
-		JScrollPane scrollNumber = createScrollableFields(5, 150, 300, 100, numberPanel);
+		JScrollPane scrollNumber = createScrollableFields(10, 165, 290, 100, numberPanel);
 		JButton addMobile = new JButton("+");
 		JButton addLandline = new JButton("+");
-		addMobile.setBounds(5, 255, 50, 20);
+		addMobile.setBounds(95, 265, 50, 20);
 		addMobile.addActionListener(e -> addNumberField(numberPanel, mobilePanel, 0));
-		addLandline.setBounds(130, 255, 50, 20);
+		addLandline.setBounds(234, 265, 50, 20);
 		addLandline.addActionListener(e -> addNumberField(numberPanel, landlinePanel, 1));
 		JButton removeMobile = new JButton("-");
 		JButton removeLandline = new JButton("-");
-		removeMobile.setBounds(65, 255, 50, 20);
+		removeMobile.setBounds(40, 265, 50, 20);
 		removeMobile.addActionListener(e -> removeNumberField(numberPanel, mobilePanel, 0));
-		removeLandline.setBounds(190, 255, 50, 20);
+		removeLandline.setBounds(179, 265, 50, 20);
 		removeLandline.addActionListener(e -> removeNumberField(numberPanel, landlinePanel, 1));
 		
 		JPanel emailPanel = createEmailPanel();
 		emailPanel.setPreferredSize(new Dimension(190, 75));
-		JScrollPane scrollEmail = createScrollableFields(300, 150, 190, 100, emailPanel);
+		JScrollPane scrollEmail = createScrollableFields(330, 260, 190, 100, emailPanel);
 		JButton addEmail = new JButton("+");
-		addEmail.setBounds(300, 255, 50, 20);
+		addEmail.setBounds(455, 360, 50, 20);
 		addEmail.addActionListener(e -> addEmailField(emailPanel));
 		JButton removeEmail = new JButton("-");
-		removeEmail.setBounds(360, 255, 50, 20);
+		removeEmail.setBounds(400, 360, 50, 20);
 		removeEmail.addActionListener(e -> removeEmailField(emailPanel));
 		
 		JPanel addressPanel = createAddressPanel();
 		addressPanel.setPreferredSize(new Dimension(275, 175));
-		JScrollPane scrollAddress = createScrollableFields(5, 275, 275, 250, addressPanel);
+		JScrollPane scrollAddress = createScrollableFields(10, 300, 290, 250, addressPanel);
 		JButton addAddress = new JButton("+");
-		addAddress.setBounds(5, 525, 50, 20);
+		addAddress.setBounds(234, 550, 50, 20);
 		addAddress.addActionListener(e -> addAddressField(addressPanel));
 		JButton removeAddress = new JButton("-");
-		removeAddress.setBounds(65, 525, 50, 20);
+		removeAddress.setBounds(179, 550, 50, 20);
 		removeAddress.addActionListener(e -> removeAddressField(addressPanel));
 		
-		window.setVisible(true);
 		window.setLayout(null);
-		window.setTitle("Nuovo contatto");
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		window.setSize(560, 640);
 		window.add(scrollNumber);
 		window.add(dataPanel);
 		window.add(imageLabel);
@@ -160,6 +156,14 @@ public class AddContatto extends JFrame{
 		window.add(addAddress);
 		window.add(removeAddress);
 		window.add(btnCrea);
+		window.setPreferredSize(new Dimension(560, 640));
+		window.setBackground(getForeground());
+		
+		this.setSize(560, 640);
+		this.setVisible(true);
+		this.setTitle("Nuovo contatto");
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.add(window);
 	}
 	
 	private JScrollPane createScrollableFields(int x, int y, int larg, int lun, JPanel comp) {
@@ -203,7 +207,6 @@ public class AddContatto extends JFrame{
 		
 		numberPanel.add(firstPanel1);
 		numberPanel.add(firstPanel2);
-		numberPanel.setBackground(Color.GRAY);
 		numberPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		return numberPanel;
 	}
@@ -212,7 +215,8 @@ public class AddContatto extends JFrame{
 		
 		JPanel emailPanel = new JPanel();
 		JLabel emailLabel = new JLabel("E-mail");
-		emailsText.add(createTextField(150, 25));
+		emailLabel.setPreferredSize(new Dimension(100,20));
+		emailsText.add(createTextField(135, 25));
 		JTextField emailField = emailsText.get(0);
 		JRadioButton newBtn = new JRadioButton();
 		newBtn.setSelected(true);
@@ -220,7 +224,6 @@ public class AddContatto extends JFrame{
 		emailsBtn.add(newBtn);
 		
 		emailPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		emailPanel.setBackground(Color.GRAY);
 		emailPanel.add(emailLabel);
 		emailPanel.add(emailField);
 		emailPanel.add(newBtn);
@@ -233,7 +236,7 @@ public class AddContatto extends JFrame{
 		JLabel streetLabel = new JLabel("Strada");
 		JLabel nLabel = new JLabel("n.");
 		JLabel capLabel = new JLabel("CAP");
-		JLabel citLabel = new JLabel("Città");
+		JLabel citLabel = new JLabel("Cittï¿½");
 		JLabel nazLabel = new JLabel("Nazione");
 		addressesText.add(createAddressFields());
 		ArrayList<JTextField> addressField = addressesText.get(0);
@@ -254,9 +257,9 @@ public class AddContatto extends JFrame{
 		addressPanel.add(newBtn);
 		addressPanel.add(nazLabel);
 		addressPanel.add(addressField.get(5));
-		addressPanel.setBackground(Color.GRAY);
 		addressPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPanel gapPanel = new JPanel();
+		gapPanel.setBackground(Color.GRAY);
 		gapPanel.setPreferredSize(new Dimension(270, 10));
 		addressPanel.add(gapPanel);
 		
@@ -284,7 +287,7 @@ public class AddContatto extends JFrame{
 	
 	private void addEmailField(JPanel panel) {
 		
-		JTextField newField = createTextField(150, 25);
+		JTextField newField = createTextField(135, 25);
 		JRadioButton newBtn = new JRadioButton();
 		emailGroup.add(newBtn);
 		emailsBtn.add(newBtn);
@@ -382,7 +385,7 @@ public class AddContatto extends JFrame{
 		JLabel streetLabel = new JLabel("Strada");
 		JLabel nLabel = new JLabel("n.");
 		JLabel capLabel = new JLabel("CAP");
-		JLabel citLabel = new JLabel("Città");
+		JLabel citLabel = new JLabel("Cittï¿½");
 		JLabel nazLabel = new JLabel("Nazione");
 		
 		ArrayList<JTextField> newAddress = createAddressFields();
@@ -404,7 +407,8 @@ public class AddContatto extends JFrame{
 		panel.add(nazLabel);
 		panel.add(newAddress.get(5));
 		JPanel gapPanel = new JPanel();
-		gapPanel.setPreferredSize(new Dimension(270, 10));
+		gapPanel.setBackground(Color.GRAY);
+		gapPanel.setPreferredSize(new Dimension(275, 10));
 		panel.add(gapPanel);
 		panel.setPreferredSize(new Dimension(panel.getWidth(), panel.getHeight()+105));
 		panel.revalidate();
@@ -428,7 +432,7 @@ public class AddContatto extends JFrame{
 		}
 	}
 	
-	public void addContact(JFrame window) {
+	public void addContact() {
 		
 		Contatto nuovoCont;
 		ArrayList<NumeriTel> contNumbers = new ArrayList<NumeriTel>();
@@ -487,7 +491,7 @@ public class AddContatto extends JFrame{
 		nuovoCont.emails = contEmail;
 		user.contatti.add(nuovoCont);
 		chiamante.showFiltered();
-		window.dispose();
+		this.dispose();
 	}
 	
 	private boolean isAddressEmpty(ArrayList<JTextField> address) {
@@ -502,7 +506,7 @@ public class AddContatto extends JFrame{
 		int response = fileChooser.showOpenDialog(null);
 		if(response == JFileChooser.APPROVE_OPTION) {
 			profilePicPath = fileChooser.getSelectedFile().getAbsolutePath();
-			imageLabel.setIcon(new ImageIcon(new ImageIcon(profilePicPath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH)));
+			imageLabel.setIcon(new ImageIcon(new ImageIcon(profilePicPath).getImage().getScaledInstance(190, 190, Image.SCALE_SMOOTH)));
 			imageLabel.repaint();
 			imageLabel.revalidate();
 		}
@@ -523,7 +527,6 @@ public class AddContatto extends JFrame{
 		return false;
 	}
 }
-
 
 
 
