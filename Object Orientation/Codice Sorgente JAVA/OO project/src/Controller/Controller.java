@@ -304,7 +304,9 @@ public class Controller {
 			
 	}
 	
-	public void modificaGruppo(String nomeGruppo, String descrizioneGruppo, Gruppo gruppo1, Utente utentex) {
-		new DAOgruppo().modificaGruppoDb(nomeGruppo, descrizioneGruppo, gruppo1.getID(),utentex.email);
+	public void modificaGruppo(String nomeGruppo, String descrizioneGruppo, Gruppo gruppo1) {
+		gruppo1.setName(nomeGruppo);
+		gruppo1.setDesc(descrizioneGruppo);
+		new DAOgruppo().modificaGruppoDb(gruppo1.getName(), gruppo1.getDesc(), gruppo1.getID());
 	}
 }

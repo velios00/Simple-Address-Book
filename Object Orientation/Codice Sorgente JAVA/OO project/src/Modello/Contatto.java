@@ -97,7 +97,7 @@ public class Contatto {
 	
 	@Override 
 	public String toString() {
-		return getName() + ' ' + getSurname() + getID();
+		return getName() + ' ' + getSurname();
 	}
 	
 	public int getID() {

@@ -32,7 +32,9 @@ public class LayerGruppi extends JPanel {
 	JComboBox removeConGrpBox;
 	Gruppo selectedGrp = null;
 	JPanel panelDettagli = new JPanel();
+	JPanel panelWest = new JPanel();
 	Contatto contact = null;
+	
 	public LayerGruppi(Utente utente1, Controller controller1) {
 		super();
 		utentex = utente1;
@@ -40,31 +42,25 @@ public class LayerGruppi extends JPanel {
 		addConGrpBox = new JComboBox();
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelWest = new JPanel();
 		panelWest.setBackground(SystemColor.inactiveCaption);
-		add(panelWest, BorderLayout.WEST);
 		panelWest.setPreferredSize(new Dimension(200, 50));
+		
+		panelDettagli = new JPanel();
+		panelDettagli.setLayout(new FlowLayout(FlowLayout.LEFT));
+		add(panelWest, BorderLayout.WEST);
+		add(panelDettagli, BorderLayout.CENTER);
 		
 		JLabel lblGroupNome = new JLabel("Lista Gruppi");
 		lblGroupNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		panelWest.add(lblGroupNome);
-		
 		JButton btnCreateGroup = new JButton("Crea nuovo Gruppo");
 		panelWest.add(btnCreateGroup);
 		btnCreateGroup.addActionListener(e -> createGrp());
-		
-		panelDettagli = new JPanel();
-		add(panelDettagli, BorderLayout.CENTER);
-		panelDettagli.setLayout(new FlowLayout(FlowLayout.LEFT));
-		
-		
 		for(Gruppo gruppo1 : utentex.getGruppi()) {
-		JButton jbutton1 = new JButton(gruppo1.getName() + ' ' + gruppo1.getDate());
-		panelWest.add(jbutton1);
-		jbutton1.addActionListener(e->showGrp(panelDettagli, gruppo1));
-		jbutton1.setPreferredSize(new Dimension(180, 40));
-		
-		
+			JButton jbutton1 = new JButton(gruppo1.getName() + ' ' + gruppo1.getDate());
+			panelWest.add(jbutton1);
+			jbutton1.addActionListener(e->showGrp(panelDettagli, gruppo1));
+			jbutton1.setPreferredSize(new Dimension(180, 40));
 		}
 		
 		
@@ -96,7 +92,6 @@ public class LayerGruppi extends JPanel {
 				 if(!GroupList.contains(contatto1))
 				 addConGrpBox.addItem(contatto1);
 			}
-			 
 			JButton buttonRemoveContact = new JButton("Rimuovi dal Gruppo");
 			panelBottoni.add(buttonRemoveContact);
 			removeConGrpBox = new JComboBox();
@@ -143,7 +138,8 @@ public class LayerGruppi extends JPanel {
 			
 			jpanel2.repaint();
 			jpanel2.revalidate();
-}
+		}
+		
 		public void addConGrpMet() {
 			JFrame frameAddConGrp = new JFrame();
 			JButton buttonConfirm = new JButton("Conferma");
@@ -154,13 +150,10 @@ public class LayerGruppi extends JPanel {
 			frameAddConGrp.add(addConGrpBox);
 			frameAddConGrp.add(buttonConfirm);
 			frameAddConGrp.setLayout(new FlowLayout());
+			buttonConfirm.addActionListener(e -> refreshPanel());
 			addConGrpBox.addActionListener(e -> contact = (Contatto) addConGrpBox.getSelectedItem());
-			System.out.println(contact);
 			buttonConfirm.addActionListener(e -> controllerx.confirmConToGrp(contact, selectedGrp));
-			System.out.println("provaprova" + contact);
 			buttonConfirm.addActionListener(e -> frameAddConGrp.dispose());
-			
-			
 		}
 		
 		public void remConGrpMet() {
@@ -173,6 +166,7 @@ public class LayerGruppi extends JPanel {
 			frameRemConGrp.add(removeConGrpBox);
 			frameRemConGrp.add(buttonConfirm);
 			frameRemConGrp.setLayout(new FlowLayout());
+			buttonConfirm.addActionListener(e -> refreshPanel());
 			removeConGrpBox.addActionListener(e -> contact = (Contatto) removeConGrpBox.getSelectedItem());
 			buttonConfirm.addActionListener(e -> controllerx.removeConToGrp(contact, selectedGrp)); 
 			buttonConfirm.addActionListener(e -> frameRemConGrp.dispose());
@@ -187,9 +181,10 @@ public class LayerGruppi extends JPanel {
 			JTextField descrizioneGruppoTextField = new JTextField();
 			nomeGruppoTextField.setPreferredSize(new Dimension (250, 40));
 			descrizioneGruppoTextField.setPreferredSize(new Dimension(250, 40));
-			
+			buttonConfirm.addActionListener(e -> refreshGrp());
 			buttonConfirm.addActionListener(e -> controllerx.creaGruppo(nomeGruppoTextField.getText(), descrizioneGruppoTextField.getText(), utentex));
-			
+			buttonConfirm.addActionListener(e -> frameCreateGrp.dispose());
+
 			frameCreateGrp.add(nomeGruppo);
 			frameCreateGrp.add(nomeGruppoTextField);
 			frameCreateGrp.add(descrizioneGruppo);
@@ -203,10 +198,10 @@ public class LayerGruppi extends JPanel {
 		}
 		
 		public void remGrp() {
-			JFrame	frameRemoveGrp = new JFrame();
 			if(JOptionPane.showConfirmDialog(null, "Sei sicuro di eliminare il gruppo?", "Conferma operazione", JOptionPane.YES_NO_OPTION) == 0) {	
 				controllerx.eliminaGruppo(selectedGrp, utentex);
 				selectedGrp = null;
+				refreshGrp();
 			}
 			
 		}
@@ -231,10 +226,34 @@ public class LayerGruppi extends JPanel {
 			frameModifyGrp.setSize(300, 220);
 			frameModifyGrp.add(buttonConfirm);
 			frameModifyGrp.setLayout(new FlowLayout());
-			
-			buttonConfirm.addActionListener(e -> controllerx.modificaGruppo(nomeGruppoTextField.getText(), descrizioneGruppoTextField.getText(), selectedGrp,  utentex));
-			
-			
+			buttonConfirm.addActionListener(e -> refreshPanel());
+			buttonConfirm.addActionListener(e -> controllerx.modificaGruppo(nomeGruppoTextField.getText(), descrizioneGruppoTextField.getText(), selectedGrp));
+			buttonConfirm.addActionListener(e -> frameModifyGrp.dispose());
 		}
+		
+		private void refreshPanel() {
+			
+			panelDettagli.removeAll();
+			showGrp(panelDettagli, selectedGrp);
+		}
+		
+		private void refreshGrp() {
+			
+			panelWest.removeAll();
+			JLabel lblGroupNome = new JLabel("Lista Gruppi");
+			lblGroupNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			panelWest.add(lblGroupNome);
+			JButton btnCreateGroup = new JButton("Crea nuovo Gruppo");
+			panelWest.add(btnCreateGroup);
+			btnCreateGroup.addActionListener(e -> createGrp());
+			for(Gruppo gruppo1 : utentex.getGruppi()) {
+				JButton jbutton1 = new JButton(gruppo1.getName() + ' ' + gruppo1.getDate());
+				panelWest.add(jbutton1);
+				jbutton1.addActionListener(e->showGrp(panelDettagli, gruppo1));
+				jbutton1.setPreferredSize(new Dimension(180, 40));
+			panelWest.repaint();
+			panelWest.revalidate();
+		}
+	}
 		
 }

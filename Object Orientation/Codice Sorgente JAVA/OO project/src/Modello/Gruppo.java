@@ -47,6 +47,11 @@ public class Gruppo {
 		return nome;
 	}
 	
+	public void setName(String newName) {
+		if(!newName.isBlank())
+			nome = newName;
+	}
+	
 	public ArrayList<Contatto> getPartecipanti() {
 		return partecipanti;
 	}
@@ -57,6 +62,10 @@ public class Gruppo {
 	
 	public String getDesc() {
 		return descrizione;
+	}
+	
+	public void setDesc(String newDesc) {
+			nome = newDesc;
 	}
 	
 	public String getID() {

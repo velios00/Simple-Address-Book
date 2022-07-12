@@ -33,7 +33,7 @@ public class Login extends JFrame {
 		JLabel label1 = new JLabel("E-mail:");
 		JLabel label2 = new JLabel("Password:");
 		emailField = new JTextField("simoneveniero00@gmail.com");
-		passField = new JTextField("Simone00");
+		passField = new JTextField("simone00");
 		controller = new Controller();
 		btnAccedi = new JButton("Accedi");
 		btnRegistrati = new JButton("Registrati");

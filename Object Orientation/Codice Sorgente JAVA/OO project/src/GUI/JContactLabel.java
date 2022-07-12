@@ -50,7 +50,7 @@ public class JContactLabel extends JPanel implements MouseListener{
 		mobile = con.getTel("MOBILE");
 		landline = con.getTel("LANDLINE");
 		
-		JLabel label1 = new JLabel(con.getName()+" "+con.getSurname() + con.getID());
+		JLabel label1 = new JLabel(con.getName()+" "+con.getSurname());
 		JLabel label2 = new JLabel(mobile);
 		JLabel label3 = new JLabel(landline);
 		JLabel label4 = new JLabel(email);

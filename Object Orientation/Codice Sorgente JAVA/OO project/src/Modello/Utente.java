@@ -13,7 +13,7 @@ public class Utente {
 	String note;
 	public ArrayList<Contatto> contatti;
 	ArrayList<Gruppo> gruppi;
-	ArrayList<PhoneCall> calls;
+	public ArrayList<PhoneCall> calls;
 	
 	
 	public Utente(Controller controller, String newEmail, String newPassword, String newNickname){
@@ -25,7 +25,6 @@ public class Utente {
 		try {
 			contatti = controller.caricaContatti(email);
 			gruppi = controller.caricaGruppiUtente(this, email);
-			calls = controller.caricaChiamate(email);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

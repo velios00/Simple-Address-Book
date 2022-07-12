@@ -10,8 +10,8 @@ public class ConnessionePG {
 	private static ConnessionePG instance;
 	private Connection connection = null;
 	private String nome = "postgres";
-	private String password = "Simone";
-	private String url = "jdbc:postgresql://localhost:5432/rubricabozza";
+	private String password = "progettoDB";
+	private String url = "jdbc:postgresql://localhost:5432/provaRubrica";
 	private String driver = "org.postgresql.Driver";
 
 	// COSTRUTTORE

@@ -81,10 +81,10 @@ public class DAOgruppo {
 		
 	}
 	
-	public void modificaGruppoDb(String nomeGruppo, String descrizioneGruppo, String IDGruppo, String email) {
+	public void modificaGruppoDb(String nomeGruppo, String descrizioneGruppo, String IDGruppo) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
-			PreparedStatement queryModificaGruppo = conn.prepareStatement("UPDATE R_GROUP SET GROUPNAME = '" + nomeGruppo + "', DESCRIPTION = '" + descrizioneGruppo + "' WHERE GROUPID = " + IDGruppo + " AND R_USER = '" + email + "'");
+			PreparedStatement queryModificaGruppo = conn.prepareStatement("UPDATE R_GROUP SET GROUPNAME = '" + nomeGruppo + "', DESCRIPTION = '" + descrizioneGruppo + "' WHERE GROUPID = " + IDGruppo);
 			System.out.println(queryModificaGruppo);
 			queryModificaGruppo.executeUpdate();
 			conn.close();

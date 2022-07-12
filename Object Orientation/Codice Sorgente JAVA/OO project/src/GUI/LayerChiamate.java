@@ -5,10 +5,13 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
+import java.sql.SQLException;
+
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import Controller.Controller;
 import Modello.PhoneCall;
 import Modello.Utente;
 
@@ -18,9 +21,14 @@ public class LayerChiamate extends JPanel {
 	
 	Utente utentex;
 	
-	public LayerChiamate(Utente utente1) {
+	public LayerChiamate(Utente utente1, Controller controller) {
 		super();
 		utentex = utente1;
+		try {
+			utentex.calls = controller.caricaChiamate(utentex.email);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JPanel PannelloLegenda = new JPanel();
 		PannelloLegenda.setBackground(SystemColor.activeCaption);
