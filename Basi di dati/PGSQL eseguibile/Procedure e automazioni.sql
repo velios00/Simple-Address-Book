@@ -113,7 +113,7 @@ BEGIN
 	SET contactName = resultString
 	WHERE PC.phoneNumber = PNumber;
 END;
-$UpdCallContactName$
+$UpdCallContactName$;
 
 
 -- Chiamata della procedura UpdCallContactName all’inserimento di una nuova riga nella tabella PhoneCall
