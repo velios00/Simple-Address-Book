@@ -1,11 +1,23 @@
 -- Implementazione del vincolo emailFormat
-ALTER TABLE Email ADD CONSTRAINT emailFormat CHECK ( email LIKE '_%@_%.__%')
-ALTER TABLE R_user ADD CONSTRAINT emailFormat CHECK ( email LIKE '_%@_%.__%')
+ALTER TABLE Email ADD CONSTRAINT emailFormat CHECK ( email LIKE '_%@_%.__%');
+ALTER TABLE R_user ADD CONSTRAINT emailFormat CHECK ( email LIKE '_%@_%.__%');
 
 -- Implementazione dei vincoli passwordLen e usernameLen
 ALTER TABLE R_User 
-ADD CONSTRAINT passwordLen CHECK (LENGTH(password)>7),
-ADD CONSTRAINT usernameLen CHECK (LENGTH(nickname)>2)
+ADD CONSTRAINT passwordLen CHECK (LENGTH(passw)>7),
+ADD CONSTRAINT usernameLen CHECK (LENGTH(nickname)>2);
+
+-- Implementazione del vincolo checkNumberType
+ALTER TABLE PhoneNumber
+ADD CONSTRAINT checkPhoneNumberType CHECK (phonetype in ('MOBILE', 'LANDLINE'));
+
+-- Implementazione del vincolo checkCallType
+ALTER TABLE PhoneCall
+ADD CONSTRAINT checkCallType CHECK (callType in ('SENT', 'ENTERED', 'MISSED'));
+
+-- Implementazione del vincolo distinctEmail
+ALTER TABLE Email 
+ADD CONSTRAINT distinctEmail UNIQUE (email, contactID);
 
 --Implementazione del vincolo uniqueMainEmail
 CREATE FUNCTION uniqueMainEmail()
@@ -39,30 +51,6 @@ BEFORE INSERT OR UPDATE ON AssignedAddress
 FOR EACH ROW
 EXECUTE PROCEDURE uniqueMainAddress();
 
--- Implementazione del vincolo checkContactNumbers
-CREATE FUNCTION checkContactNumbers()
-RETURNS TRIGGER AS $checkContactNumbers$
-    DECLARE
-        ConID integer := OLD.contactID;
-	BEGIN
-	    IF NOT EXISTS (SELECT * 
-                       FROM AssignedPhone as AP, PhoneNumber as PN 
-                       WHERE AP.phoneNumber = PN.phoneNumber and ConID = AP.contactID and PN.phoneType = 'MOBILE')
-		OR NOT EXISTS (SELECT * 
-                       FROM AssignedPhone as AP, PhoneNumber as PN 
-                       WHERE AP.phoneNumber = PN.phoneNumber and ConID = AP.contactID and PN.phoneType = 'LANDLINE')
-			THEN 
-            RAISE EXCEPTION 'A contact must have at least a landline number and a mobile number';
-		END IF;
-	RETURN NEW;
-	END;
-$checkContactNumbers$ LANGUAGE plpgsql;
-
-CREATE TRIGGER checkContactNumbers
-AFTER DELETE OR UPDATE ON AssignedPhone
-FOR EACH ROW
-EXECUTE PROCEDURE checkContactNumbers();
-
 -- Implementazione del vincolo uniqueLinkedNumber
 CREATE FUNCTION uniqueLinkedNumber()
 RETURNS TRIGGER AS $uniqueLinkedNumber$
@@ -86,17 +74,29 @@ AFTER INSERT OR UPDATE ON AssignedPhone
 FOR EACH ROW
 EXECUTE PROCEDURE uniqueLinkedNumber();
 
--- Implementazione del vincolo distinctEmail
-ALTER TABLE Email 
-ADD CONSTRAINT distinctEmail UNIQUE (email, contactID)
+-- Implementazione del vincolo checkContactNumbers
+CREATE FUNCTION checkContactNumbers()
+RETURNS TRIGGER AS $checkContactNumbers$
+    DECLARE
+        ConID integer := OLD.contactID;
+	BEGIN
+	    IF NOT EXISTS (SELECT * 
+                       FROM AssignedPhone as AP, PhoneNumber as PN 
+                       WHERE AP.phoneNumber = PN.phoneNumber and ConID = AP.contactID and PN.phoneType = 'MOBILE')
+		OR NOT EXISTS (SELECT * 
+                       FROM AssignedPhone as AP, PhoneNumber as PN 
+                       WHERE AP.phoneNumber = PN.phoneNumber and ConID = AP.contactID and PN.phoneType = 'LANDLINE')
+			THEN 
+            RAISE EXCEPTION 'A contact must have at least a landline number and a mobile number';
+		END IF;
+	RETURN NEW;
+	END;
+$checkContactNumbers$ LANGUAGE plpgsql;
 
--- Implementazione del vincolo checkCallType
-ALTER TABLE PhoneCall
-ADD CONSTRAINT checkCallType CHECK (callType in ('SENT', 'ENTERED', 'MISSED'))
-
--- Implementazione del vincolo checkNumberType
-ALTER TABLE PhoneNumber
-ADD CONSTRAINT checkPhoneNumberType CHECK (phonetype in ('MOBILE', 'LANDLINE'))
+CREATE TRIGGER checkContactNumbers
+AFTER DELETE OR UPDATE ON AssignedPhone
+FOR EACH ROW
+EXECUTE PROCEDURE checkContactNumbers();
 
 -- Implementazione del vincolo timeConsistancyGroup
 CREATE FUNCTION timeConsistancyGroup()
