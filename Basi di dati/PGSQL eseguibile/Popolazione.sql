@@ -1,6 +1,6 @@
 --Utenti
 INSERT INTO R_USER VALUES ('simoneveniero00@gmail.com', 'simone00', 'velios', NULL),
-INSERT INTO R_USER VALUES ('gianmarcolembo@gmail.com', 'password', 'mandr96', NULL);
+('gianmarcolembo@gmail.com', 'password', 'mandr96', NULL);
 
 --Contatti
 INSERT INTO CONTACT VALUES (1, 'GIANMARCO', 'LEMBO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
@@ -232,3 +232,23 @@ INSERT INTO PHONECALL VALUES (1, 'ENTERED', '2022-03-12 14:55:28', '0818598232',
 (9, 'MISSED', '2022-06-02 18:45:57', '3290741949', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
 (10, 'ENTERED', '2022-03-21 09:35:42', '3913219521', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
 (11, 'SENT', '2022-07-11 12:30:15', '3511065999', '00:01:11', 'default', 'gianmarcolembo@gmail.com');
+
+
+
+
+
+-- Alla creazione di un Gruppo, la data di creazione viene impostata a quella corrente
+CREATE FUNCTION SetGroupDate()
+RETURNS TRIGGER AS $SetGroupDate$
+	BEGIN
+		UPDATE R_Group as RG
+		SET creationDate = CURRENT_DATE
+		WHERE NEW.groupID = RG.groupID;
+		RETURN NEW;
+	END;
+$SetGroupDate$ LANGUAGE plpgsql;
+
+CREATE TRIGGER SetGroupDate
+AFTER INSERT ON R_Group
+FOR EACH ROW
+EXECUTE PROCEDURE SetGroupDate();
