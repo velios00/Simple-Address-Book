@@ -75,26 +75,6 @@ EXECUTE PROCEDURE AutoDeleteAddress();
 
 
 
--- Alla creazione di un Gruppo, la data di creazione viene impostata a quella corrente
-CREATE FUNCTION SetGroupDate()
-RETURNS TRIGGER AS $SetGroupDate$
-	BEGIN
-		UPDATE R_Group as RG
-		SET creationDate = CURRENT_DATE
-		WHERE NEW.groupID = RG.groupID;
-		RETURN NEW;
-	END;
-$SetGroupDate$ LANGUAGE plpgsql;
-
-CREATE TRIGGER SetGroupDate
-AFTER INSERT ON R_Group
-FOR EACH ROW
-EXECUTE PROCEDURE SetGroupDate();
-
-
-
-
-
 -- La seguente procedura riceve in ingresso un numero telefonico e un utente, cerca il nome e il cognome dei contatti associati ad essi, e li scrive nella colonna contactName di PhoneCall dove il numero telefonico corrisponde. Se non ci sono contatti associati al numero telefonico, scrive “Unknown”
 CREATE PROCEDURE UpdCallContactName(PNumber char(10), usr R_User.email%type)
 LANGUAGE plpgsql AS $UpdCallContactName$
