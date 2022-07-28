@@ -59,7 +59,7 @@ DECLARE
     Tipo varchar(10);
 BEGIN
     SELECT PN.linkedNumber INTO Condizione FROM PhoneNumber AS PN WHERE  PN.phoneNumber = new.phoneNumber;
-    SELECT PN.phoneType INTO Tipo FROM PhoneNumber AS PN WHERE PN.phoneType = new.phoneType;
+    SELECT PN.phoneType INTO Tipo FROM PhoneNumber AS PN WHERE PN.phoneType = new.phoneNumber;
 	IF(Condizione = true) THEN
 		IF EXISTS (SELECT * FROM AssignedPhone AS AP, PhoneNumber AS PN WHERE PN.linkedNumber = true AND AP.contactID = new.contactID AND PN.phoneType = Tipo AND AP.phoneNumber = PN.phoneNumber) THEN
     		RAISE EXCEPTION 'A linked number already exists for this contact !';
