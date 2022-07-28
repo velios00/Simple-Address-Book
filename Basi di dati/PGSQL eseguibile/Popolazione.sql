@@ -30,42 +30,42 @@ INSERT INTO PHONENUMBER VALUES ('MOBILE', '3457541235', FALSE),
 ('MOBILE', '3335558888', FALSE), 
 ('MOBILE', '3957541835', FALSE),
 ('MOBILE', '3206969420', FALSE), 
-('LANDLINE', '0818703845', TRUE), 
-('MOBILE', '3420194219', TRUE), 
+('LANDLINE', '0818703845', FALSE),
+('MOBILE', '3420194219', FALSE), 
 ('MOBILE', '3662558143', TRUE), 
-('MOBILE', '3497806290', TRUE), 
+('MOBILE', '3497806290', FALSE), 
 ('MOBILE', '3203032134', TRUE), 
-('MOBILE', '3214234210', TRUE), 
-('MOBILE', '3215423123', TRUE), 
-('MOBILE', '3902156940', TRUE), 
+('MOBILE', '3214234210', FALSE), 
+('MOBILE', '3215423123', FALSE), 
+('MOBILE', '3902156940', FALSE), 
 ('MOBILE', '3410041234', TRUE), 
-('MOBILE', '3913219521', TRUE), 
+('MOBILE', '3913219521', FALSE), 
 ('MOBILE', '3214210521', TRUE), 
-('MOBILE', '3950234012', TRUE), 
-('MOBILE', '3900001201', TRUE),
-('MOBILE', '3532554863', TRUE), 
+('MOBILE', '3950234012', FALSE), 
+('MOBILE', '3900001201', FALSE),
+('MOBILE', '3532554863', FALSE), 
 ('MOBILE', '3215486211', TRUE), 
-('MOBILE', '3910230549', TRUE), 
-('MOBILE', '3203920510', TRUE), 
-('MOBILE', '3912341250', TRUE), 
-('MOBILE', '3219421004', FALSE), 
+('MOBILE', '3910230549', FALSE), 
+('MOBILE', '3203920510', FALSE), 
+('MOBILE', '3912341250', FALSE), 
+('MOBILE', '3219421004', TRUE), 
 ('MOBILE', '3925921039', FALSE), 
 ('MOBILE', '3295912095', FALSE), 
-('MOBILE', '3205291052', FALSE), 
+('MOBILE', '3205291052', TRUE), 
 ('MOBILE', '3950201942', FALSE), 
 ('MOBILE', '3959201025', FALSE),
 ('MOBILE', '3925921925', FALSE), 
 ('MOBILE', '3201204012', FALSE), 
 ('LANDLINE', '0819294223', TRUE), 
-('LANDLINE', '0812499510', TRUE), 
+('LANDLINE', '0812499510', FALSE), 
 ('LANDLINE', '0818249210', TRUE), 
-('LANDLINE', '0819230421', TRUE), 
+('LANDLINE', '0819230421', FALSE), 
 ('LANDLINE', '0812381284', TRUE),
-('LANDLINE', '0818739241', TRUE), 
+('LANDLINE', '0818739241', FALSE), 
 ('LANDLINE', '0818493823', TRUE), 
-('LANDLINE', '0819348929', TRUE), 
+('LANDLINE', '0819348929', FALSE), 
 ('LANDLINE', '0812489128', TRUE), 
-('LANDLINE', '0812480124', TRUE), 
+('LANDLINE', '0812480124', FALSE), 
 ('LANDLINE', '0818744535', TRUE),   
 ('LANDLINE', '0818598232', FALSE), 
 ('LANDLINE', '0812301204', FALSE), 
@@ -169,7 +169,7 @@ INSERT INTO EMAIL VALUES ('gianmarcolembo@gmail.com', TRUE, 1),
 ('tifa.lock@libero.it', FALSE, 20);
 
 --Messaging Account
-INSERT INTO MESSAGING ('Whatsapp', 'xX_magomerlino_Xx', 'merlino45magia@hotmail.it', 'In viaggio'),
+INSERT INTO MESSAGING VALUES ('Whatsapp', 'xX_magomerlino_Xx', 'merlino45magia@hotmail.it', 'In viaggio'),
 ('Whatsapp', 'PapaX', 'infedelivibrucio@riot.com', 'Sono in chiesa'),
 ('WeChat', 'falce_martello', 'tifa.lock@libero.it', '...'),
 ('Messenger', 'Lvce22', 'sonolaluce@riot.com', 'Al lavoro'),
@@ -232,23 +232,3 @@ INSERT INTO PHONECALL VALUES (1, 'ENTERED', '2022-03-12 14:55:28', '0818598232',
 (9, 'MISSED', '2022-06-02 18:45:57', '3290741949', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
 (10, 'ENTERED', '2022-03-21 09:35:42', '3913219521', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
 (11, 'SENT', '2022-07-11 12:30:15', '3511065999', '00:01:11', 'default', 'gianmarcolembo@gmail.com');
-
-
-
-
-
--- Alla creazione di un Gruppo, la data di creazione viene impostata a quella corrente
-CREATE FUNCTION SetGroupDate()
-RETURNS TRIGGER AS $SetGroupDate$
-	BEGIN
-		UPDATE R_Group as RG
-		SET creationDate = CURRENT_DATE
-		WHERE NEW.groupID = RG.groupID;
-		RETURN NEW;
-	END;
-$SetGroupDate$ LANGUAGE plpgsql;
-
-CREATE TRIGGER SetGroupDate
-AFTER INSERT ON R_Group
-FOR EACH ROW
-EXECUTE PROCEDURE SetGroupDate();
