@@ -168,6 +168,14 @@ INSERT INTO EMAIL VALUES ('gianmarcolembo@gmail.com', TRUE, 1),
 ('laragionepercuinondovresti@gmail.com', TRUE, 20),
 ('tifa.lock@libero.it', FALSE, 20);
 
+--Messaging Account
+INSERT INTO MESSAGING ('Whatsapp', 'xX_magomerlino_Xx', 'merlino45magia@hotmail.it', 'In viaggio'),
+('Whatsapp', 'PapaX', 'infedelivibrucio@riot.com', 'Sono in chiesa'),
+('WeChat', 'falce_martello', 'tifa.lock@libero.it', '...'),
+('Messenger', 'Lvce22', 'sonolaluce@riot.com', 'Al lavoro'),
+('Messenger', 'PietroTornaIndietro', 'pietrosmusi_fiero89@outlook.it', 'Disponibile'),
+('Whatsapp', 'steve90', 'aicubettinoncigioco@gmail.com', 'Occupato a giocare a minecraft');
+
 --Assegnazione indirizzi
 INSERT INTO ASSIGNEDADDRESS VALUES (1, 'VIA ROMA 32', '80054', TRUE),
 (2, 'VIA LAMMA 24', '80054', TRUE),
@@ -211,3 +219,16 @@ INSERT INTO PARTICIPANT VALUES (2, 1, '2022-03-23'),
 (3, 1, '2020-10-15'),
 (3, 4, '2021-03-08'),
 (3, 5, '2021-09-27');
+
+--Chiamate
+INSERT INTO PHONECALL VALUES (1, 'ENTERED', '2022-03-12 14:55:28', '0818598232', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
+(2, 'SENT', '2022-07-15 12:30:15', '0818373010', '00:03:06', 'default', 'simoneveniero00@gmail.com'),
+(3, 'ENTERED', '2022-01-01 00:16:32', '3925921039', '00:01:45', 'default', 'simoneveniero00@gmail.com'),
+(4, 'SENT', '2022-02-28 17:36:02', '3950234012', '00:00:26', 'default', 'simoneveniero00@gmail.com'),
+(5, 'MISSED', '2022-02-28 16:57:47', '3950234012', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
+(6, 'ENTERED', '2022-05-05 11:05:59', '3343795144', '00:01:24', 'default', 'simoneveniero00@gmail.com'),
+(7, 'ENTERED', '2022-04-01 22:15:45', '0812394503', '00:00:41', 'default', 'simoneveniero00@gmail.com'),
+(8, 'SENT', '2021-10-31 21:20:00', '3215486211', '00:06:06', 'default', 'simoneveniero00@gmail.com'),
+(9, 'MISSED', '2022-06-02 18:45:57', '3290741949', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
+(10, 'ENTERED', '2022-03-21 09:35:42', '3913219521', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
+(11, 'SENT', '2022-07-11 12:30:15', '3511065999', '00:01:11', 'default', 'gianmarcolembo@gmail.com');
