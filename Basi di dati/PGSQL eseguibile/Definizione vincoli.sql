@@ -70,7 +70,7 @@ END;
 $uniqueLinkedNumber$ LANGUAGE plpgsql;
 
 CREATE TRIGGER uniqueLinkedNumber 
-AFTER INSERT OR UPDATE ON AssignedPhone
+BEFORE INSERT OR UPDATE ON AssignedPhone
 FOR EACH ROW
 EXECUTE PROCEDURE uniqueLinkedNumber();
 
