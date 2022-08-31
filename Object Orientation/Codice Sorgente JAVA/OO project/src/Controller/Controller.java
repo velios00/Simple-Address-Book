@@ -23,9 +23,22 @@ import Modello.MessagingAccount;
 import Modello.NumeriTel;
 import Modello.PhoneCall;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Gestisce la logica e gli algoritmi del programma, viene instanziato una sola volta all'inizio del programma.
+ */
 public class Controller {
 	
 	
+	/**
+	 * Questo metodo permette l'accesso all'account di un utente tramite l'email e la password.
+	 * Se l'email è stata trovata nel database e la password corrispondente è corretta, restituisce un {@link Utente}, null altrimenti
+	 *
+	 * @param email email dell'account.
+	 * @param password password digitata dall'utente.
+	 * @return {@link Utente} utente trovato oppure null.
+	 * @throws SQLException SQL exception
+	 */
 	public Utente accessoUtente(String email, String password) throws SQLException{
 		
 		ResultSet result = new DAOutente().cercaUtente(email);
@@ -43,6 +56,16 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Questo metodo permette la creazione di un nuovo account tramite una email, una password e un nickname.
+	 * Controlla che i dati inseriti siano validi e non violino alcun vincolo del database.
+	 * Se la registrazione è andata a buon fine restituisce un {@link Utente}, null altrimenti.
+	 *
+	 * @param email email del nuovo account
+	 * @param password password  da associare al nuovo account
+	 * @param nickName nickname dell'account
+	 * @return il nuovo {@link Utente} oppure null
+	 */
 	public Utente registraUtente(String email, String password, String nickName) {
 		
 		try {
@@ -66,6 +89,13 @@ public class Controller {
 		return new Utente(this, email, password, nickName);
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutti i contatti associati ad un utente tramite l'email.
+	 *
+	 * @param email email dell'utente a cui sono associati i contatti da caricare.
+	 * @return array list dei contatti dell'utente.
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<Contatto> caricaContatti(String email) throws SQLException{
 		
 		ArrayList<Contatto> contatti = new ArrayList<Contatto>();
@@ -77,6 +107,13 @@ public class Controller {
 		return contatti;
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutti i gruppi associati ad un utente tramite l'email.
+	 *
+	 * @param user utente a cui sono associati i gruppi da caricare.
+	 * @return array list dei gruppi dell'utente
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<Gruppo> caricaGruppiUtente(Utente user, String email) throws SQLException{
 		
 		ArrayList<Gruppo> gruppi = new ArrayList<Gruppo>();
@@ -88,6 +125,13 @@ public class Controller {
 		return gruppi;
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutte le chiamate associate ad un utente tramite l'email.
+	 *
+	 * @param email email dell'utente a cui sono associate le chiamate da caricare
+	 * @return array list delle PhoneCall associate all'utente.
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<PhoneCall> caricaChiamate(String email) throws SQLException{
 		
 		ArrayList<PhoneCall> chiamate = new ArrayList<PhoneCall>();
@@ -99,6 +143,13 @@ public class Controller {
 		return chiamate;
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutti gli indirizzi associati ad un contatto tramite l'ID.
+	 *
+	 * @param contactID ID del contatto a cui sono associati gli indirizzi da caricare. 
+	 * @return array list degli indirizzi associati al contatto.
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<Indirizzo> caricaIndirizziContatto(int contactID) throws SQLException{
 		
 		ArrayList<Indirizzo> addresses = new ArrayList<Indirizzo>();
@@ -110,6 +161,13 @@ public class Controller {
 		return addresses;
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutti i numeri di telefono appartenenti ad un contatto tramite l'ID
+	 *
+	 * @param contactID ID del contatto a cui sono associati i numeri da caricare.
+	 * @return array list dei numeri di telefono appartenenti al contatto.
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<NumeriTel> caricaNumeriContatto(int contactID) throws SQLException{
 		
 		ArrayList<NumeriTel> numbers = new ArrayList<NumeriTel>();
@@ -121,6 +179,13 @@ public class Controller {
 		return numbers;
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutte le email appartenenti ad un contatto
+	 *
+	 * @param contactID ID del contatto a cui sono associate le email da caricare.
+	 * @return array list delle email appartenenti al contatto
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<Email> caricaEmailContatto(int contactID) throws SQLException{
 		
 		ArrayList<Email> emails = new ArrayList<Email>();
@@ -132,6 +197,13 @@ public class Controller {
 		return emails;
 	}
 	
+	/**
+	 * Trova nel database ed inizializza tutti gli account di messaging collegati ad una email
+	 *
+	 * @param contactEmail l'email del contatto a cui sono associati gli account di messaging
+	 * @return array list degli account di messaging collegati all'email
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<MessagingAccount> caricaMessagingEmail(String contactEmail) throws SQLException{
 		
 		ArrayList<MessagingAccount> accounts = new ArrayList<MessagingAccount>();
@@ -143,6 +215,12 @@ public class Controller {
 		return accounts;
 	}
 	
+	/**
+	 * Trova nel database l'email principale di un contatto
+	 *
+	 * @param contactID ID del contatto
+	 * @return l'email principale
+	 */
 	public String getMainEmail(int contactID) {
 		
 		ResultSet result;
@@ -159,6 +237,13 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Trova il numero di telefono principale di un contatto
+	 *
+	 * @param contactID ID del contatto
+	 * @param tipo tipo del numero di telefono da trovare, può essere mobile o fisso
+	 * @return il numero di telefono principale
+	 */
 	public String getPhoneNumber(int contactID, String tipo) {
 		
 		ResultSet result;
@@ -175,6 +260,13 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Trova nel database gli ID dei contatti partecipanti ad un gruppo
+	 *
+	 * @param groupID ID del gruppo di cui trovare gli ID dei contatti
+	 * @return array list di {@link Integer} contenenti gli ID dei contatti
+	 * @throws SQLException SQL exception
+	 */
 	public ArrayList<Integer> cercaIDContattiGruppo(String groupID) throws SQLException{
 		
 		ArrayList<Integer> conIDs = new ArrayList<Integer>();
@@ -186,6 +278,18 @@ public class Controller {
 		return conIDs;
 	}
 	
+	/**
+	 * Aggiunge un contatto alla rubrica. Il metodo si occupa di inserire il nuovo contatto nel database. 
+	 * estituisce il nuovo contatto. Restituisce null se l'accesso al database non è andato a buon fine.
+	 *
+	 * @param userEmail email dell'utente proprietario della rubrica in cui inserire il contatto.
+	 * @param nome nome del contatto.
+	 * @param cognome cognome del contatto.
+	 * @param profilePic percorso della directory dove si trova l'immagine del profilo.
+	 * @param fav se il contatto è tra i preferiti.
+	 * @return il nuovo contatto creato.
+	 * @throws SQLException the SQL exception
+	 */
 	public Contatto aggiungiContatto(String userEmail, String nome, String cognome, String profilePic, Boolean fav) throws SQLException {
 		
 		ResultSet result;
@@ -194,11 +298,27 @@ public class Controller {
 		return new Contatto(nome, cognome, profilePic, fav.toString(), result.getInt(1)); //cera get string
 	}
 	
+	/**
+	 * Elimina un contatto dalla rubrica. Il metodo si occupa  di eliminare il contatto dal database.
+	 *
+	 * @param ID ID del contatto da eliminare
+	 */
 	public void eliminaContatto(int ID) {
 		
 		new DAOcontatto().eliminaContatto(ID);
 	}
 	
+	/**
+	 * Aggiunge un numero all'elenco dei numeri di telefono di un contatto. Il metodo controlla prima se il numero di telefono è già presente nel database.
+	 * Restituisce un nuovo oggetto NumeriTel.
+	 *
+	 * @param type tipo del nuovo numero di telefono da trovare, può essere mobile o fisso
+	 * @param numero nuovo numero di telefono
+	 * @param linkednumber se il numero di telefono è di reindirizzamento
+	 * @param contactID ID contatto a cui aggiungere il nuovo numero di telefono
+	 * @return il nuovo numero di telefono
+	 * @throws SQLException SQL exception
+	 */
 	public NumeriTel getPhoneNumber(String type, String numero, Boolean linkednumber, int contactID) throws SQLException {
 		
 		NumeriTel tel;
@@ -216,6 +336,20 @@ public class Controller {
 		return tel;
 	}
 	
+	/**
+	 * Aggiunge un indirizzo all'elenco degli indirizzi fisici di un contatto. Il metodo controlla prima se il l'indirizzo è già presente nel database.
+	 * Restituisce un nuovo oggetto Indirizzo.
+	 *
+	 * @param street Stringa contenente nome della strada e numero civico
+	 * @param cap Stringa contenente il CAP
+	 * @param citta città dell'indirizzo
+	 * @param province provincia della città
+	 * @param naz nazione
+	 * @param contactID ID del contatto a cui aggiungere il nuovo indirizzo
+	 * @param main se il nuovo indirizzo è principale per quel contatto
+	 * @return il nuovo indirizzo
+	 * @throws SQLException SQL exception
+	 */
 	public Indirizzo getAddress(String street, String cap, String citta, String province, String naz, int contactID, Boolean main) throws SQLException {
 		
 		Indirizzo address;
@@ -232,12 +366,31 @@ public class Controller {
 		return address;
 	}
 	
+	/**
+	 * Aggiunge una email all'elenco deglle email di un contatto. Il metodo controlla prima se l'email è già presente nel database.
+	 * Restituisce un nuovo oggetto Email.
+	 *
+	 * @param email Stringa contenente l'email
+	 * @param main se l'email è principale per quel contatto
+	 * @param contactID ID del contatto a cui associare la nuova email
+	 * @return la nuova email
+	 * @throws SQLException SQL exception
+	 */
 	public Email aggiungiEmail(String email, Boolean main, int contactID) throws SQLException {
 
 		new DAOcontatto().inserisciEmail(email, main, contactID);
 		return new Email(this, email, main.toString());
 	}
 	
+	/**
+	 * Effettua una ricerca in una lista di contatti.
+	 * Per ogni contatto all'interno della lista il metodo controlla se una stringa è contenuta all'interno delle informazioni del contatto stesso.
+	 * Restituisce una nuova lista contenente i contatti che soddisfano la condizione.
+	 *
+	 * @param contactList lista dei contatti in cui effettuare la ricerca
+	 * @param str sottostringa da ricercare nei contatti
+	 * @return arraylist dei contatti in cui è stata trovata la sottostringa all'interno delle relative informazioni.
+	 */
 	public ArrayList<Contatto> searchContactList(ArrayList<Contatto> contactList, String str) {
 		
 		ArrayList<Contatto> tmpList = new ArrayList<Contatto>();
@@ -270,6 +423,12 @@ public class Controller {
 		return tmpList;
 	}
 	
+	/**
+	 * Aggiunge un contatto ad un gruppo. Il metodo si occupa di modificare aanche il database.
+	 *
+	 * @param addingContact il contatto da aggiungere nel gruppo
+	 * @param intoGroup il gruppo a cui aggiungere il contatto
+	 */
 	public void confirmConToGrp(Contatto addingContact, Gruppo intoGroup) {
 		new DAOgruppo().aggiungiContattoGruppo(addingContact.getID(), intoGroup.getID());
 		intoGroup.getPartecipanti().add(addingContact);
@@ -277,12 +436,25 @@ public class Controller {
 		
 		}
 	
+	/**
+	 * Rimuove un contatto da un gruppo. Il metodo si occupa di modificare aanche il database.
+	 *
+	 * @param removingContact il contatto da rimuovere dal gruppo
+	 * @param intoGroup il gruppo da cui rimuovere il contatto
+	 */
 	public void removeConToGrp(Contatto removingContact, Gruppo intoGroup) {
 		new DAOgruppo().rimuoviContattoGruppo(removingContact.getID(), intoGroup.getID());
 		intoGroup.getPartecipanti().remove(removingContact);
 		removingContact.getGruppi().remove(intoGroup);
 	}
 	
+	/**
+	 * Crea un nuovo gruppo. Il metodo si occupa anche di inserire il nuovo gruppo nel database.
+	 *
+	 * @param nomeGruppo nome del nuovo gruppo
+	 * @param descrizioneGruppo descrizione del gruppo
+	 * @param utentex utente al quale appartiene il gruppo
+	 */
 	public void creaGruppo(String nomeGruppo, String descrizioneGruppo, Utente utentex) {
 		ResultSet result = new DAOgruppo().creaGruppoDb(nomeGruppo, descrizioneGruppo, utentex.email);
 		try {
@@ -295,6 +467,12 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Rimuove un gruppo dalla rubrica. Il metodo si occupa anche di rimuovere il gruppo dal database.
+	 *
+	 * @param removingGrp il gruppo da rimuovere dalla rubrica
+	 * @param utentex utente al quale appartiene i gruppo da rimuovere
+	 */
 	public void eliminaGruppo(Gruppo removingGrp, Utente utentex) {
 		new DAOgruppo().eliminaGruppoDb(removingGrp.getID());
 		utentex.getGruppi().remove(removingGrp);
@@ -304,6 +482,13 @@ public class Controller {
 			
 	}
 	
+	/**
+	 * Modifica le informazioni di un gruppo. Il metodo si occupa di modificare anche il database.
+	 *
+	 * @param nomeGruppo nuovo nome del gruppo
+	 * @param descrizioneGruppo nuova descrizione del gruppo
+	 * @param gruppo1 gruppo da modificare
+	 */
 	public void modificaGruppo(String nomeGruppo, String descrizioneGruppo, Gruppo gruppo1) {
 		gruppo1.setName(nomeGruppo);
 		gruppo1.setDesc(descrizioneGruppo);

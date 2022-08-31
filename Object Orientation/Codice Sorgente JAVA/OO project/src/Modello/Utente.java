@@ -41,5 +41,4 @@ public class Utente {
 	public ArrayList<PhoneCall> getCalls(){
 		return calls;
 	}
-	//TODO Inizializzazione array
 }
