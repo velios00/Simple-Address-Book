@@ -17,10 +17,23 @@ import Modello.Utente;
 
 import java.awt.GridLayout;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa è la classe LayerChiamate, rappresenta l'interfaccia grafica della sezione chiamate della rubrica.
+ * Con questa interfaccia è possibile visualizzare le chiamate effettuate, ricevute e perse, ordinate cronologicamente.
+ * 
+ */
 public class LayerChiamate extends JPanel {
 	
+	/** The utentex. */
 	Utente utentex;
 	
+	/**
+	 * Instantiates a new layer chiamate.
+	 *
+	 * @param utente1 the utente 1
+	 * @param controller the controller
+	 */
 	public LayerChiamate(Utente utente1, Controller controller) {
 		super();
 		utentex = utente1;

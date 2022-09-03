@@ -14,13 +14,32 @@ import javax.swing.JTextField;
 import Controller.Controller;
 import Modello.Utente;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa è la Classe Registrazione, rappresenta l'interfaccia grafica per la registrazione dell'utente all'interno della rubrica.
+ * La classe crea un {@link JFrame} che contiene diversi {@link JButton} e {@link JTextField}, a cui sono associati eventi che fanno interfacciare
+ * Registrazione con il {@link Controller}, e che renderanno possibile la registrazione dell'utente.
+ */
 public class Registrazione {
 	
+	/** The text 1. */
 	JTextField text1;
+	
+	/** The text 2. */
 	JTextField text2;
+	
+	/** The text 3. */
 	JTextField text3;
+	
+	/** The text 4. */
 	JTextField text4;
 	
+	/**
+	 * Instantiates a new registrazione.
+	 *
+	 * @param controller the controller
+	 * @param chiamante the chiamante
+	 */
 	Registrazione(Controller controller, JFrame chiamante){
 		
 		JFrame reg = new JFrame();
@@ -69,10 +88,24 @@ public class Registrazione {
 		reg.add(mainPanel);
 	}
 
+	/**
+	 * Go back.
+	 *
+	 * @param chiamante the chiamante
+	 * @param reg the reg
+	 */
 	private void goBack(JFrame chiamante, JFrame reg){
 		chiamante.setVisible(true);
 		reg.dispose();
 	}
+	
+	/**
+	 * Go to home.
+	 *
+	 * @param controller the controller
+	 * @param chiamante the chiamante
+	 * @param reg the reg
+	 */
 	private void goToHome(Controller controller, JFrame chiamante, JFrame reg) {
 		if(text2.getText().equals(text3.getText())) {
 			

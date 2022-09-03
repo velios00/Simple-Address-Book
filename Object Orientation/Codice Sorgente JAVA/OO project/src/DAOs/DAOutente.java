@@ -7,11 +7,25 @@ import java.sql.SQLException;
 
 import ConnessioneDatabase.ConnessionePG;
 
+// TODO: Auto-generated Javadoc
+/**
+ * DAO (Database Access Object) che si occupa di recuperare dal database l'utente, i contatti, i gruppi e le chiamate della rubrica.
+ * La classe permette anche l'inserimento di un nuovo utente all'interno del database.
+ */
 public class DAOutente {
 	
+	/** Contiente la connessione stabilita con il database */
 	private Connection conn;
+	
+	/** Eventuale risultato della query effettuata nel database */
 	ResultSet result;
 	
+	/**
+	 * Cerca utente.
+	 *
+	 * @param email the email
+	 * @return the result set
+	 */
 	public ResultSet cercaUtente(String email) {
 		
 		try {
@@ -27,6 +41,14 @@ public class DAOutente {
 		return result;
 	}
 	
+	/**
+	 * Inserisci utente.
+	 *
+	 * @param email the email
+	 * @param password the password
+	 * @param nickName the nick name
+	 * @throws SQLException the SQL exception
+	 */
 	public void inserisciUtente(String email, String password, String nickName) throws SQLException {
 		
 		conn = ConnessionePG.getInstance().getConnection();
@@ -37,6 +59,12 @@ public class DAOutente {
 
 	}
 	
+	/**
+	 * Cerca contatti.
+	 *
+	 * @param email the email
+	 * @return the result set
+	 */
 	public ResultSet cercaContatti(String email) {
 		
 		try {
@@ -52,6 +80,12 @@ public class DAOutente {
 		return result;
 	}
 	
+	/**
+	 * Cerca gruppi.
+	 *
+	 * @param email the email
+	 * @return the result set
+	 */
 	public ResultSet cercaGruppi(String email) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -66,6 +100,12 @@ public class DAOutente {
 		return result;
 	}
 	
+	/**
+	 * Cerca chiamate.
+	 *
+	 * @param email the email
+	 * @return the result set
+	 */
 	public ResultSet cercaChiamate(String email) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();

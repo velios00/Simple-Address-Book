@@ -11,7 +11,7 @@ public class ConnessionePG {
 	private Connection connection = null;
 	private String nome = "postgres";
 	private String password = "progettoDB";
-	private String url = "jdbc:postgresql://localhost:5432/provaRubrica";
+	private String url = "jdbc:postgresql://localhost:5432/provaRubricaDB";
 	private String driver = "org.postgresql.Driver";
 
 	// COSTRUTTORE

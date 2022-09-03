@@ -19,20 +19,53 @@ import Modello.Contatto;
 import Modello.Gruppo;
 import Modello.Utente;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa è la classe LayerContatti, rappresenta l'interfaccia grafica della sezione dei contatti della rubrica.
+ * Contiene i {@link JContactLabel} e diversi {@link JButton} a cui sono associati eventi che fanno 
+ * interfacciare LayerContatti con il {@link Controller} e l'{@link Utente} per gestire le modifiche ai contatti della rubrica.
+ */
 public class LayerContatti extends JPanel {
 	
+	/** The utente. */
 	Utente utente;
+	
+	/** The controller. */
 	Controller controller;
+	
+	/** The show panel. */
 	JPanel showPanel;
+	
+	/** The list panel. */
 	JPanel listPanel;
+	
+	/** The top panel. */
 	JPanel topPanel;
+	
+	/** The contact list. */
 	ArrayList<Contatto> contactList;
+	
+	/** The selected label. */
 	JContactLabel selectedLabel;
+	
+	/** The elimina button. */
 	public JButton eliminaButton;
+	
+	/** The modifica button. */
 	public JButton modificaButton;
+	
+	/** The filter box. */
 	JComboBox filterBox;
+	
+	/** The sort box. */
 	JComboBox sortBox;
 	
+	/**
+	 * Instantiates a new layer contatti.
+	 *
+	 * @param user the user
+	 * @param ctrll the ctrll
+	 */
 	public LayerContatti(Utente user, Controller ctrll) {
 		
 		super();
@@ -72,10 +105,16 @@ public class LayerContatti extends JPanel {
 		this.add(showPanel, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Aggiungi contatto.
+	 */
 	public void aggiungiContatto() {
 		new AddContatto(controller, utente, this);
 	}
 	
+	/**
+	 * Elimina contatto.
+	 */
 	public void eliminaContatto() {
 		if(selectedLabel != null && JOptionPane.showConfirmDialog(null, "Eliminare il contatto?", "Conferma operazione", JOptionPane.YES_NO_OPTION) == 0) {
 			showPanel.removeAll();
@@ -83,6 +122,8 @@ public class LayerContatti extends JPanel {
 			showPanel.revalidate();
 			controller.eliminaContatto(selectedLabel.con.getID());
 			int index = utente.contatti.indexOf(selectedLabel.con);
+			for(Gruppo grp : selectedLabel.con.getGruppi())
+				grp.getPartecipanti().remove(index);
 			utente.contatti.remove(index);
 			eliminaButton.setEnabled(false);
 			modificaButton.setEnabled(false);
@@ -90,6 +131,9 @@ public class LayerContatti extends JPanel {
 		}
 	}
 	
+	/**
+	 * Refresh list panel.
+	 */
 	public void refreshListPanel() {
 		int count = listPanel.getComponentCount()-1;
 		while(count > 1)
@@ -102,19 +146,37 @@ public class LayerContatti extends JPanel {
 		listPanel.revalidate();
 	}
 	
+	/**
+	 * Aggiorna contatti.
+	 */
 	public void aggiornaContatti() {
 		sortContactsBy(sortBox.getSelectedItem().toString());
 		refreshListPanel();
 	}
 	
+	/**
+	 * Sets the selected label.
+	 *
+	 * @param label the new selected label
+	 */
 	public void setSelectedLabel(JContactLabel label) {
 		selectedLabel = label;
 	}
 	
+	/**
+	 * Gets the selected label.
+	 *
+	 * @return the selected label
+	 */
 	public JContactLabel getSelectedLabel() {
 		return selectedLabel;
 	}
 	
+	/**
+	 * Blank panel.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel blankPanel(){
 		
 		JPanel panel = new JPanel();
@@ -123,6 +185,11 @@ public class LayerContatti extends JPanel {
 		return panel;
 	}
 	
+	/**
+	 * Crea legenda.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel creaLegenda() {
 		
 		JPanel legendaPanel = new JPanel();
@@ -140,6 +207,11 @@ public class LayerContatti extends JPanel {
 		return legendaPanel;
 	}
 	
+	/**
+	 * Sort contacts by.
+	 *
+	 * @param mod the mod
+	 */
 	public void sortContactsBy(String mod) {
 		
 		if(mod.equals("Nome"))
@@ -151,6 +223,11 @@ public class LayerContatti extends JPanel {
 		}
 	}
 	
+	/**
+	 * Crea search panel.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel creaSearchPanel() {
 		
 		JPanel searchPanel = new JPanel();
@@ -176,6 +253,12 @@ public class LayerContatti extends JPanel {
 		return searchPanel;
 	}
 	
+	/**
+	 * Cerca cont.
+	 *
+	 * @param field the field
+	 * @param panel the panel
+	 */
 	private void cercaCont(JTextField field, JPanel panel) {
 		
 		String str = field.getText();
@@ -192,10 +275,18 @@ public class LayerContatti extends JPanel {
 		refreshListPanel();
 	}
 	
+	/**
+	 * Reset contact list.
+	 */
 	private void resetContactList() {
 		contactList = (ArrayList<Contatto>) filterContact().clone();
 	}
 	
+	/**
+	 * Crea filter box.
+	 *
+	 * @return the j combo box
+	 */
 	private JComboBox creaFilterBox() {
 		
 		JComboBox box = new JComboBox();
@@ -207,6 +298,11 @@ public class LayerContatti extends JPanel {
 		return box;
 	}
 	
+	/**
+	 * Filter contact.
+	 *
+	 * @return the array list
+	 */
 	private ArrayList<Contatto> filterContact(){
 		
 		String item = filterBox.getSelectedItem().toString();
@@ -225,6 +321,9 @@ public class LayerContatti extends JPanel {
 		return null;	
 	}
 	
+	/**
+	 * Show filtered.
+	 */
 	public void showFiltered() {
 		resetContactList();
 		refreshListPanel();

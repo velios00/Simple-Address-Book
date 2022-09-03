@@ -23,18 +23,47 @@ import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.awt.Font;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa e' la classe LayerGruppi, rappresenta l'interfaccia grafica della sezione dei gruppi della rubrica.
+ * contiene diversi {@link JButton} a cui sono associati eventi che fanno interfacciare la classe con il {@link Controller} e l'{@link Utente}
+ * per e gestire le modifiche ai gruppi nella rubrica.
+ */
 public class LayerGruppi extends JPanel {
 
+	/** The utentex. */
 	Utente utentex;
+	
+	/** The gruppox. */
 	Gruppo gruppox;
+	
+	/** The controllerx. */
 	Controller controllerx;
+	
+	/** The add con grp box. */
 	JComboBox addConGrpBox;
+	
+	/** The remove con grp box. */
 	JComboBox removeConGrpBox;
+	
+	/** The selected grp. */
 	Gruppo selectedGrp = null;
+	
+	/** The panel dettagli. */
 	JPanel panelDettagli = new JPanel();
+	
+	/** The panel west. */
 	JPanel panelWest = new JPanel();
+	
+	/** The contact. */
 	Contatto contact = null;
 	
+	/**
+	 * Instantiates a new layer gruppi.
+	 *
+	 * @param utente1 the utente 1
+	 * @param controller1 the controller 1
+	 */
 	public LayerGruppi(Utente utente1, Controller controller1) {
 		super();
 		utentex = utente1;
@@ -66,6 +95,12 @@ public class LayerGruppi extends JPanel {
 		
 	}
 
+		/**
+		 * Show grp.
+		 *
+		 * @param jpanel2 the jpanel 2
+		 * @param gruppo1 the gruppo 1
+		 */
 		public void showGrp(JPanel jpanel2, Gruppo gruppo1) {
 			JLabel jlabelTitolo = new JLabel(gruppo1.getName());
 			jlabelTitolo.setFont(new Font("Bebas Neue", Font.BOLD, 50));
@@ -140,6 +175,9 @@ public class LayerGruppi extends JPanel {
 			jpanel2.revalidate();
 		}
 		
+		/**
+		 * Adds the con grp met.
+		 */
 		public void addConGrpMet() {
 			JFrame frameAddConGrp = new JFrame();
 			JButton buttonConfirm = new JButton("Conferma");
@@ -156,6 +194,9 @@ public class LayerGruppi extends JPanel {
 			buttonConfirm.addActionListener(e -> frameAddConGrp.dispose());
 		}
 		
+		/**
+		 * Rem con grp met.
+		 */
 		public void remConGrpMet() {
 			JFrame frameRemConGrp = new JFrame();
 			JButton buttonConfirm = new JButton("Conferma");
@@ -172,6 +213,9 @@ public class LayerGruppi extends JPanel {
 			buttonConfirm.addActionListener(e -> frameRemConGrp.dispose());
 		}
 		
+		/**
+		 * Creates the grp.
+		 */
 		public void createGrp() {
 			JFrame frameCreateGrp = new JFrame();
 			JButton buttonConfirm = new JButton("Crea");
@@ -197,6 +241,9 @@ public class LayerGruppi extends JPanel {
 			frameCreateGrp.setLayout(new FlowLayout());	
 		}
 		
+		/**
+		 * Rem grp.
+		 */
 		public void remGrp() {
 			if(JOptionPane.showConfirmDialog(null, "Sei sicuro di eliminare il gruppo?", "Conferma operazione", JOptionPane.YES_NO_OPTION) == 0) {	
 				controllerx.eliminaGruppo(selectedGrp, utentex);
@@ -206,6 +253,9 @@ public class LayerGruppi extends JPanel {
 			
 		}
 		
+		/**
+		 * Mod grp.
+		 */
 		public void modGrp() {
 			JFrame frameModifyGrp = new JFrame();
 			JButton buttonConfirm = new JButton("Conferma");
@@ -231,12 +281,18 @@ public class LayerGruppi extends JPanel {
 			buttonConfirm.addActionListener(e -> frameModifyGrp.dispose());
 		}
 		
+		/**
+		 * Refresh panel.
+		 */
 		private void refreshPanel() {
 			
 			panelDettagli.removeAll();
 			showGrp(panelDettagli, selectedGrp);
 		}
 		
+		/**
+		 * Refresh grp.
+		 */
 		private void refreshGrp() {
 			
 			panelWest.removeAll();

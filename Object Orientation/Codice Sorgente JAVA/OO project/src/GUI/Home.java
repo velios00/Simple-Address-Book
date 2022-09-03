@@ -9,20 +9,48 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Controller.Controller;
 import Modello.Utente;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa è la classe Home, rappresenta il {@link JFrame} principale della rubrica.
+ * La principale differenza dalle altre interfacce sta nel fatto che la classe Home è il layer "madre" della rubrica,
+ * dove sono presenti collegamenti tramite dei {@link JButton} a tutti i layer, ovvero il {@link LayerContatti}, il {@link LayerGruppi} e il {@link LayerChiamate}.
+ * Il layer predefinito è quello dei contatti.
+ */
 public class Home extends JFrame {
 	
+	/** The side panel. */
 	JPanel sidePanel;
+	
+	/** The main panel. */
 	JPanel mainPanel;
+	
+	/** The contatti panel. */
 	JPanel contattiPanel;
+	
+	/** The gruppi panel. */
 	JPanel gruppiPanel;
+	
+	/** The chiamate panel. */
 	JPanel chiamatePanel;
+	
+	/** The utente. */
 	Utente utente;
+	
+	/** The controller. */
 	Controller controller;
 	
+	/**
+	 * Instantiates a new home.
+	 *
+	 * @param ctrll the ctrll
+	 * @param chiamante the chiamante
+	 * @param user the user
+	 */
 	Home(Controller ctrll, JFrame chiamante, Utente user){
 		
 		super();
@@ -57,6 +85,12 @@ public class Home extends JFrame {
 		System.out.println("Rubrica di "+utente.nickname);
 	}
 	
+	/**
+	 * Change layer.
+	 *
+	 * @param panel the panel
+	 * @param newPanel the new panel
+	 */
 	public void changeLayer(JPanel panel, JPanel newPanel) {
 		
 		this.remove(mainPanel);

@@ -17,22 +17,47 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import Controller.Controller;
 import Modello.Contatto;
 import Modello.Email;
 import Modello.Gruppo;
 import Modello.Indirizzo;
+import Modello.MessagingAccount;
 import Modello.NumeriTel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa è la classe JContactLabel, rappresenta un'anteprima delle informazioni del {@link Contatto}. Implementa un metodo {@link mouseClicked} attraverso il quale è
+ * possibile visualizzare tutti i dettagli del contatto. Contiene diversi metodi che fanno interfacciare la classe con il {@link LayerContatti}
+ * per aggiornare l'interfaccia.
+ */
 public class JContactLabel extends JPanel implements MouseListener{
 	
+	/** The con. */
 	Contatto con;
+	
+	/** The controller. */
 	Controller controller;
+	
+	/** The home. */
 	LayerContatti home;
+	
+	/** The show panel. */
 	JPanel showPanel;
+	
+	/** The default color. */
 	public Color defaultColor;
 	
+	/**
+	 * Instantiates a new j contact label.
+	 *
+	 * @param ctrll the ctrll
+	 * @param parentPanel the parent panel
+	 * @param contact the contact
+	 * @param mostraPanel the mostra panel
+	 */
 	JContactLabel(Controller ctrll, LayerContatti parentPanel, Contatto contact, JPanel mostraPanel) {
 		
 		con = contact;
@@ -62,19 +87,39 @@ public class JContactLabel extends JPanel implements MouseListener{
 		this.setPreferredSize(new Dimension(500, 30));
 	}
 	
+	/**
+	 * Gets the contact.
+	 *
+	 * @return the contact
+	 */
 	public Contatto getContact() {
 		return con;
 	}
 	
+	/**
+	 * Gets the panel.
+	 *
+	 * @return the panel
+	 */
 	public JPanel getPanel() {
 		return showPanel;
 	}
 	
+	/**
+	 * Sets the panel.
+	 *
+	 * @param panel the new panel
+	 */
 	public void setPanel(JPanel panel) {
 		
 		showPanel = panel;
 	}
 	
+	/**
+	 * Mouse clicked.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
@@ -96,6 +141,7 @@ public class JContactLabel extends JPanel implements MouseListener{
 		JLabel landlineLabel = new JLabel("<html><font size=\"+1\">Telefono</font><br/>");
 		JLabel groupLabel = new JLabel("<html><font size=\"+1\">Gruppi</font><br/>");
 		JLabel emailLabel = new JLabel("<html><font size=\"+1\">Email</font><br/>");
+		JLabel messagingLabel = new JLabel("<html><font size=\"+1\">Account di messaging</font><br/>");
 		JPanel addressPanel = new JPanel();
 		
 		JLabel nameLabel = new JLabel(con.getName()+" "+ con.getSurname());
@@ -112,9 +158,19 @@ public class JContactLabel extends JPanel implements MouseListener{
 		landlineLabel.setVerticalAlignment(JLabel.TOP);
 		for(NumeriTel tel : con.numeri) {
 			if(tel.getType().equals("MOBILE"))
-				mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"<br/>");
+			{
+				if(tel.ifLinked())
+					mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"*<br/>");
+				else
+					mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"<br/>");
+			}
 			else
-				landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"<br/>");
+			{
+				if(tel.ifLinked())
+					landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"*<br/>");
+				else
+					landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"<br/>");
+			}
 		}
 		mobileLabel.setText(mobileLabel.getText()+"</html>");
 		mobileLabel.setPreferredSize(new Dimension(130, 100));
@@ -135,10 +191,14 @@ public class JContactLabel extends JPanel implements MouseListener{
 		emailLabel.setVerticalAlignment(JLabel.TOP);
 		emailLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
 		for(Email em : con.emails)
+		{
 			if(em.main())
 				emailLabel.setText(emailLabel.getText()+"<b>"+em.getString()+"</b><br/>");
 			else
 				emailLabel.setText(emailLabel.getText()+em.getString()+"<br/>");
+			for(MessagingAccount ma : em.getMessaging())
+				messagingLabel.setText(messagingLabel.getText()+" "+ma);
+		}
 		emailLabel.setText(emailLabel.getText()+"</html>");
 		emailLabel.setPreferredSize(new Dimension(220, 140));
 		emailLabel.setOpaque(true);
@@ -170,21 +230,37 @@ public class JContactLabel extends JPanel implements MouseListener{
 		showPanel.add(landlineLabel);
 		showPanel.add(groupLabel);
 		showPanel.add(emailLabel);
+		showPanel.add(messagingLabel);
 		showPanel.add(addressPanel);
 	}
 
+	/**
+	 * Mouse pressed.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Mouse released.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Mouse entered.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JPanel panel = (JPanel) e.getSource();
@@ -193,6 +269,11 @@ public class JContactLabel extends JPanel implements MouseListener{
 		
 	}
 
+	/**
+	 * Mouse exited.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		JPanel panel = (JPanel) e.getSource();

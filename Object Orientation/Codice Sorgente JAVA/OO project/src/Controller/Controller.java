@@ -25,13 +25,13 @@ import Modello.PhoneCall;
 
 // TODO: Auto-generated Javadoc
 /**
- * Gestisce la logica e gli algoritmi del programma, viene instanziato una sola volta all'inizio del programma.
+ * Gestisce la logica e gli algoritmi del programma, viene instanziato una sola volta all'inizio.
  */
 public class Controller {
 	
 	
 	/**
-	 * Questo metodo permette l'accesso all'account di un utente tramite l'email e la password.
+	 * Questo metodo permette l'accesso all'account di un {@link Utente} tramite l'email e la password.
 	 * Se l'email è stata trovata nel database e la password corrispondente è corretta, restituisce un {@link Utente}, null altrimenti
 	 *
 	 * @param email email dell'account.
@@ -90,7 +90,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti i contatti associati ad un utente tramite l'email.
+	 * Trova nel database ed inizializza tutti i {@link Contatto} associati ad un {@link Utente} tramite l'email.
 	 *
 	 * @param email email dell'utente a cui sono associati i contatti da caricare.
 	 * @return array list dei contatti dell'utente.
@@ -108,7 +108,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti i gruppi associati ad un utente tramite l'email.
+	 * Trova nel database ed inizializza tutti i {@link Gruppo} associati ad un {@link Utente} tramite l'email.
 	 *
 	 * @param user utente a cui sono associati i gruppi da caricare.
 	 * @return array list dei gruppi dell'utente
@@ -126,10 +126,10 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutte le chiamate associate ad un utente tramite l'email.
+	 * Trova nel database ed inizializza tutte le {@link PhoneCall} associate ad un {@link Utente} tramite l'email.
 	 *
 	 * @param email email dell'utente a cui sono associate le chiamate da caricare
-	 * @return array list delle PhoneCall associate all'utente.
+	 * @return array list delle chiamate associate all'utente.
 	 * @throws SQLException SQL exception
 	 */
 	public ArrayList<PhoneCall> caricaChiamate(String email) throws SQLException{
@@ -144,7 +144,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti gli indirizzi associati ad un contatto tramite l'ID.
+	 * Trova nel database ed inizializza tutti gli {@link Indirizzo} associati ad un {@link Contatto} tramite l'ID.
 	 *
 	 * @param contactID ID del contatto a cui sono associati gli indirizzi da caricare. 
 	 * @return array list degli indirizzi associati al contatto.
@@ -162,7 +162,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti i numeri di telefono appartenenti ad un contatto tramite l'ID
+	 * Trova nel database ed inizializza tutti i {@link NumeriTel} appartenenti ad un {@link Contatto} tramite l'ID
 	 *
 	 * @param contactID ID del contatto a cui sono associati i numeri da caricare.
 	 * @return array list dei numeri di telefono appartenenti al contatto.
@@ -180,7 +180,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutte le email appartenenti ad un contatto
+	 * Trova nel database ed inizializza tutte le {@link Email} appartenenti ad un {@link Contatto}
 	 *
 	 * @param contactID ID del contatto a cui sono associate le email da caricare.
 	 * @return array list delle email appartenenti al contatto
@@ -198,7 +198,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti gli account di messaging collegati ad una email
+	 * Trova nel database ed inizializza tutti i {@link MessagingAccount} collegati ad una {@link Email}
 	 *
 	 * @param contactEmail l'email del contatto a cui sono associati gli account di messaging
 	 * @return array list degli account di messaging collegati all'email
@@ -216,7 +216,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database l'email principale di un contatto
+	 * Trova nel database la {@link Email} principale di un contatto
 	 *
 	 * @param contactID ID del contatto
 	 * @return l'email principale
@@ -238,7 +238,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova il numero di telefono principale di un contatto
+	 * Trova il {@link NumeriTel} principale di un contatto
 	 *
 	 * @param contactID ID del contatto
 	 * @param tipo tipo del numero di telefono da trovare, può essere mobile o fisso
@@ -280,7 +280,7 @@ public class Controller {
 	
 	/**
 	 * Aggiunge un contatto alla rubrica. Il metodo si occupa di inserire il nuovo contatto nel database. 
-	 * estituisce il nuovo contatto. Restituisce null se l'accesso al database non è andato a buon fine.
+	 * Restituisce il nuovo {@link Contatto}. Restituisce null se l'accesso al database non è andato a buon fine.
 	 *
 	 * @param userEmail email dell'utente proprietario della rubrica in cui inserire il contatto.
 	 * @param nome nome del contatto.
@@ -299,7 +299,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Elimina un contatto dalla rubrica. Il metodo si occupa  di eliminare il contatto dal database.
+	 * Elimina un {@link Contatto} dalla rubrica. Il metodo si occupa  di eliminare il contatto dal database.
 	 *
 	 * @param ID ID del contatto da eliminare
 	 */
@@ -310,8 +310,8 @@ public class Controller {
 	
 	/**
 	 * Aggiunge un numero all'elenco dei numeri di telefono di un contatto. Il metodo controlla prima se il numero di telefono è già presente nel database.
-	 * Restituisce un nuovo oggetto NumeriTel.
-	 *
+	 * Restituisce un nuovo oggetto {@link NumeriTel}
+	 * 
 	 * @param type tipo del nuovo numero di telefono da trovare, può essere mobile o fisso
 	 * @param numero nuovo numero di telefono
 	 * @param linkednumber se il numero di telefono è di reindirizzamento
@@ -338,7 +338,7 @@ public class Controller {
 	
 	/**
 	 * Aggiunge un indirizzo all'elenco degli indirizzi fisici di un contatto. Il metodo controlla prima se il l'indirizzo è già presente nel database.
-	 * Restituisce un nuovo oggetto Indirizzo.
+	 * Restituisce un nuovo oggetto {@link Indirizzo}.
 	 *
 	 * @param street Stringa contenente nome della strada e numero civico
 	 * @param cap Stringa contenente il CAP
@@ -368,7 +368,7 @@ public class Controller {
 	
 	/**
 	 * Aggiunge una email all'elenco deglle email di un contatto. Il metodo controlla prima se l'email è già presente nel database.
-	 * Restituisce un nuovo oggetto Email.
+	 * Restituisce un nuovo oggetto {@link Email}.
 	 *
 	 * @param email Stringa contenente l'email
 	 * @param main se l'email è principale per quel contatto
@@ -384,7 +384,7 @@ public class Controller {
 	
 	/**
 	 * Effettua una ricerca in una lista di contatti.
-	 * Per ogni contatto all'interno della lista il metodo controlla se una stringa è contenuta all'interno delle informazioni del contatto stesso.
+	 * Per ogni {@link Contatto} all'interno della lista il metodo controlla se una stringa è contenuta all'interno delle informazioni del contatto stesso.
 	 * Restituisce una nuova lista contenente i contatti che soddisfano la condizione.
 	 *
 	 * @param contactList lista dei contatti in cui effettuare la ricerca
@@ -424,7 +424,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Aggiunge un contatto ad un gruppo. Il metodo si occupa di modificare aanche il database.
+	 * Aggiunge un {@link Contatto} ad un {@link Gruppo}. Il metodo si occupa di modificare anche il database.
 	 *
 	 * @param addingContact il contatto da aggiungere nel gruppo
 	 * @param intoGroup il gruppo a cui aggiungere il contatto
@@ -437,7 +437,7 @@ public class Controller {
 		}
 	
 	/**
-	 * Rimuove un contatto da un gruppo. Il metodo si occupa di modificare aanche il database.
+	 * Rimuove un {@link Contatto} da un {@link Gruppo}. Il metodo si occupa di modificare aanche il database.
 	 *
 	 * @param removingContact il contatto da rimuovere dal gruppo
 	 * @param intoGroup il gruppo da cui rimuovere il contatto
@@ -449,7 +449,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Crea un nuovo gruppo. Il metodo si occupa anche di inserire il nuovo gruppo nel database.
+	 * Crea un nuovo {@link Gruppo}. Il metodo si occupa anche di inserire il nuovo gruppo nel database.
 	 *
 	 * @param nomeGruppo nome del nuovo gruppo
 	 * @param descrizioneGruppo descrizione del gruppo
@@ -468,7 +468,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Rimuove un gruppo dalla rubrica. Il metodo si occupa anche di rimuovere il gruppo dal database.
+	 * Rimuove un {@link Gruppo} dalla rubrica. Il metodo si occupa anche di rimuovere il gruppo dal database.
 	 *
 	 * @param removingGrp il gruppo da rimuovere dalla rubrica
 	 * @param utentex utente al quale appartiene i gruppo da rimuovere
@@ -483,7 +483,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Modifica le informazioni di un gruppo. Il metodo si occupa di modificare anche il database.
+	 * Modifica le informazioni di un {@link Gruppo}. Il metodo si occupa di modificare anche il database.
 	 *
 	 * @param nomeGruppo nuovo nome del gruppo
 	 * @param descrizioneGruppo nuova descrizione del gruppo

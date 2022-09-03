@@ -15,17 +15,38 @@ import javax.swing.JTextField;
 import Controller.Controller;
 import Modello.Utente;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa e' la classe Login, rappresenta l'interfaccia grafica della sezione, appunto, di login nella rubrica.
+ * Contiene diversi {@link JButton} e {@link JTextField}, a cui sono associati eventi che permettono l'accesso alla rubrica,
+ * ovvero la comparsa della {@link Registrazione} e della {@link Home}.
+ */
 public class Login extends JFrame {
 	
+	/** The btn accedi. */
 	JButton btnAccedi;
+	
+	/** The btn registrati. */
 	JButton btnRegistrati;
+	
+	/** The pass field. */
 	JTextField emailField, passField;
+	
+	/** The controller. */
 	Controller controller;
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		new Login();
 	}
 	
+	/**
+	 * Instantiates a new login.
+	 */
 	Login(){
 		
 		JFrame login = new JFrame();
@@ -70,11 +91,22 @@ public class Login extends JFrame {
 
 	}
 	
+	/**
+	 * Go to registrazione.
+	 *
+	 * @param chiamante the chiamante
+	 */
 	private void goToRegistrazione(JFrame chiamante) {
 		System.out.println("Registrazione...");
 		new Registrazione(controller, chiamante);
 	}
 	
+	/**
+	 * Go to home.
+	 *
+	 * @param chiamante the chiamante
+	 * @throws SQLException the SQL exception
+	 */
 	private void goToHome(JFrame chiamante) throws SQLException {
 		System.out.println(emailField.getText());
 		System.out.println("Accesso...");

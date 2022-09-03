@@ -29,29 +29,82 @@ import Modello.Indirizzo;
 import Modello.NumeriTel;
 import Modello.Utente;
 
+// TODO: Auto-generated Javadoc
+/**
+ * Questa è la classe AddContatto, ovvero la finestra contenente l'interfaccia grafica che permette l'aggiunta di un {@link Contatto} in rubrica.
+ * Contiene diversi {@link JButton}, {@link JTextField}, e {@link JCheckBox}, che acquisiscono le informazioni necessarie per la creazione del nuovo contatto.
+ * Contiene diversi metodi che fanno interfacciare la classe con il {@link Controller}, l'{@link Utente} e il {@link LayerContatti}
+ * per aggiornare l'interfaccia e gestire le modifiche alla rubrica.
+ */
 public class AddContatto extends JFrame{
 	
+	/** The user. */
 	Utente user;
+	
+	/** The controller. */
 	Controller controller;
+	
+	/** The chiamante. */
 	LayerContatti chiamante;
+	
+	/** The name text. */
 	JTextField nameText;
+	
+	/** The surname text. */
 	JTextField surnameText;
+	
+	/** The mobiles text. */
 	ArrayList<JTextField> mobilesText;
+	
+	/** The landlines text. */
 	ArrayList<JTextField> landlinesText;
+	
+	/** The emails text. */
 	ArrayList<JTextField> emailsText;
+	
+	/** The addresses text. */
 	ArrayList<ArrayList<JTextField>> addressesText;
+	
+	/** The mobile group. */
 	ButtonGroup mobileGroup;
+	
+	/** The landline group. */
 	ButtonGroup landlineGroup;
+	
+	/** The email group. */
 	ButtonGroup emailGroup;
+	
+	/** The address group. */
 	ButtonGroup addressGroup;
+	
+	/** The mobiles btn. */
 	ArrayList<JRadioButton> mobilesBtn;
+	
+	/** The landlines btn. */
 	ArrayList<JRadioButton> landlinesBtn;
+	
+	/** The emails btn. */
 	ArrayList<JRadioButton> emailsBtn;
+	
+	/** The addresses btn. */
 	ArrayList<JRadioButton> addressesBtn;
+	
+	/** The image label. */
 	JLabel imageLabel;
+	
+	/** The profile pic path. */
 	String profilePicPath;
+	
+	/** The fav box. */
 	JCheckBox favBox;
 	
+	/**
+	 * Instantiates a new adds the contatto.
+	 *
+	 * @param ctrll the ctrll
+	 * @param utente the utente
+	 * @param caller the caller
+	 */
 	AddContatto(Controller ctrll, Utente utente, LayerContatti caller){
 		
 		super();
@@ -166,6 +219,16 @@ public class AddContatto extends JFrame{
 		this.add(window);
 	}
 	
+	/**
+	 * Creates the scrollable fields.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param larg the larg
+	 * @param lun the lun
+	 * @param comp the comp
+	 * @return the j scroll pane
+	 */
 	private JScrollPane createScrollableFields(int x, int y, int larg, int lun, JPanel comp) {
 		
 		JScrollPane scroll = new JScrollPane(comp);
@@ -174,6 +237,13 @@ public class AddContatto extends JFrame{
 		return scroll;
 	}
 	
+	/**
+	 * Creates the number panel.
+	 *
+	 * @param firstPanel1 the first panel 1
+	 * @param firstPanel2 the first panel 2
+	 * @return the j panel
+	 */
 	private JPanel createNumberPanel(JPanel firstPanel1, JPanel firstPanel2) {
 		
 		mobilesText.add(createTextField(100, 25));
@@ -211,6 +281,11 @@ public class AddContatto extends JFrame{
 		return numberPanel;
 	}
 	
+	/**
+	 * Creates the email panel.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel createEmailPanel() {
 		
 		JPanel emailPanel = new JPanel();
@@ -230,6 +305,11 @@ public class AddContatto extends JFrame{
 		return emailPanel;
 	}
 	
+	/**
+	 * Creates the address panel.
+	 *
+	 * @return the j panel
+	 */
 	private JPanel createAddressPanel() {
 		
 		JPanel addressPanel = new JPanel();
@@ -266,6 +346,13 @@ public class AddContatto extends JFrame{
 		return addressPanel;
 	}
 	
+	/**
+	 * Creates the text field.
+	 *
+	 * @param larg the larg
+	 * @param lung the lung
+	 * @return the j text field
+	 */
 	public JTextField createTextField(int larg, int lung) {
 		
 		JTextField nuovo = new JTextField();
@@ -273,6 +360,11 @@ public class AddContatto extends JFrame{
 		return nuovo;
 	}
 	
+	/**
+	 * Creates the address fields.
+	 *
+	 * @return the array list
+	 */
 	public ArrayList<JTextField> createAddressFields(){
 		
 		ArrayList<JTextField> fields = new ArrayList<JTextField>();
@@ -285,6 +377,11 @@ public class AddContatto extends JFrame{
 		return fields;
 	}
 	
+	/**
+	 * Adds the email field.
+	 *
+	 * @param panel the panel
+	 */
 	private void addEmailField(JPanel panel) {
 		
 		JTextField newField = createTextField(135, 25);
@@ -300,6 +397,11 @@ public class AddContatto extends JFrame{
 		panel.repaint();
 	}
 	
+	/**
+	 * Removes the email field.
+	 *
+	 * @param panel the panel
+	 */
 	private void removeEmailField(JPanel panel) {
 		
 		int last = emailsText.size()-1;
@@ -316,6 +418,13 @@ public class AddContatto extends JFrame{
 		}
 	}
 	
+	/**
+	 * Adds the number field.
+	 *
+	 * @param parentPanel the parent panel
+	 * @param panel the panel
+	 * @param type the type
+	 */
 	private void addNumberField(JPanel parentPanel, JPanel panel, int type) {
 		
 		JTextField newField = createTextField(100, 25);
@@ -344,6 +453,13 @@ public class AddContatto extends JFrame{
 		parentPanel.repaint();
 	}
 	
+	/**
+	 * Removes the number field.
+	 *
+	 * @param parentPanel the parent panel
+	 * @param panel the panel
+	 * @param type the type
+	 */
 	private void removeNumberField(JPanel parentPanel, JPanel panel, int type) {
 		
 		int lastMobile = mobilesText.size()-1;
@@ -380,6 +496,11 @@ public class AddContatto extends JFrame{
 		parentPanel.repaint();
 	}
 	
+	/**
+	 * Adds the address field.
+	 *
+	 * @param panel the panel
+	 */
 	private void addAddressField(JPanel panel) {
 
 		JLabel streetLabel = new JLabel("Strada");
@@ -415,6 +536,11 @@ public class AddContatto extends JFrame{
 		panel.repaint();
 	}
 	
+	/**
+	 * Removes the address field.
+	 *
+	 * @param panel the panel
+	 */
 	private void removeAddressField(JPanel panel) {
 		
 		int last = addressesText.size()-1;
@@ -432,6 +558,9 @@ public class AddContatto extends JFrame{
 		}
 	}
 	
+	/**
+	 * Adds the contact.
+	 */
 	public void addContact() {
 		
 		Contatto nuovoCont;
@@ -494,12 +623,21 @@ public class AddContatto extends JFrame{
 		this.dispose();
 	}
 	
+	/**
+	 * Checks if is address empty.
+	 *
+	 * @param address the address
+	 * @return true, if is address empty
+	 */
 	private boolean isAddressEmpty(ArrayList<JTextField> address) {
 		
 		String str = new String(address.get(0).getText()+address.get(1).getText()+address.get(2).getText());
 		return str.isBlank();
 	}
 	
+	/**
+	 * Select image.
+	 */
 	public void selectImage() {
 		
 		JFileChooser fileChooser = new JFileChooser();
@@ -512,6 +650,11 @@ public class AddContatto extends JFrame{
 		}
 	}
 	
+	/**
+	 * Check numbers.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean checkNumbers() {
 		
 		boolean cond = false;

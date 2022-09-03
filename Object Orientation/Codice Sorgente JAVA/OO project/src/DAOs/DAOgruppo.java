@@ -7,12 +7,26 @@ import java.sql.SQLException;
 
 import ConnessioneDatabase.ConnessionePG;
 
+// TODO: Auto-generated Javadoc
+/**
+ * DAO (Database Access Object) che si occupa di gestire i gruppi all'interno del database, ovvero aggiungerne, eliminarne  o modificarne uno.
+ * La classe è in grado anche di recuperare le informazioni di un gruppo.
+ */
 public class DAOgruppo {
 	
 	
+	/** Contiente la connessione stabilita con il database */
 	private Connection conn;
+	
+	/** Eventuale risultato della query effettuata nel database */
 	ResultSet result;
 	
+	/**
+	 * Cerca contatti gruppo.
+	 *
+	 * @param groupID the group ID
+	 * @return the result set
+	 */
 	public ResultSet cercaContattiGruppo(String groupID) {
 		
 		try {
@@ -28,6 +42,12 @@ public class DAOgruppo {
 		return result;
 	}
 	
+	/**
+	 * Aggiungi contatto gruppo.
+	 *
+	 * @param contactID the contact ID
+	 * @param groupID the group ID
+	 */
 	public void aggiungiContattoGruppo(int contactID, String groupID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -41,6 +61,12 @@ public class DAOgruppo {
 	}
 	}
 
+	/**
+	 * Rimuovi contatto gruppo.
+	 *
+	 * @param contactID the contact ID
+	 * @param groupID the group ID
+	 */
 	public void rimuoviContattoGruppo(int contactID, String groupID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -54,6 +80,14 @@ public class DAOgruppo {
 	}
 }
 	
+	/**
+	 * Crea gruppo db.
+	 *
+	 * @param nomeGruppo the nome gruppo
+	 * @param descrizioneGruppo the descrizione gruppo
+	 * @param email the email
+	 * @return the result set
+	 */
 	public ResultSet creaGruppoDb(String nomeGruppo, String descrizioneGruppo, String email) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -68,6 +102,11 @@ public class DAOgruppo {
 		}
 	}
 	
+	/**
+	 * Elimina gruppo db.
+	 *
+	 * @param groupID the group ID
+	 */
 	public void eliminaGruppoDb(String groupID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -81,6 +120,13 @@ public class DAOgruppo {
 		
 	}
 	
+	/**
+	 * Modifica gruppo db.
+	 *
+	 * @param nomeGruppo the nome gruppo
+	 * @param descrizioneGruppo the descrizione gruppo
+	 * @param IDGruppo the ID gruppo
+	 */
 	public void modificaGruppoDb(String nomeGruppo, String descrizioneGruppo, String IDGruppo) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();

@@ -8,11 +8,26 @@ import java.sql.Statement;
 
 import ConnessioneDatabase.ConnessionePG;
 
+// TODO: Auto-generated Javadoc
+/**
+ * DAO (Database Access Object) che si occupa di gestire i contatti all'interno del database, ovvero aggiungerne, eliminarne o modificarne uno.
+ * La classe è in grado anche di gestire nel database le infomazioni relative al contatto, ovvero aggiungere, rimuovere o modificare indirizzi, numeri di telfono ed email.
+ * I metodi includono anche il recupero di infomazioni di un contatto dal database.
+ */
 public class DAOcontatto {
 
+	/** Contiente la connessione stabilita con il database */
 	private Connection conn;
+	
+	/** Eventuale risultato della query effettuata nel database */
 	ResultSet result;
 	
+	/**
+	 * Gets the main email.
+	 *
+	 * @param contactID the contact ID
+	 * @return the main email
+	 */
 	public ResultSet getMainEmail(int contactID) {
 		
 		try {
@@ -28,6 +43,13 @@ public class DAOcontatto {
 		return result;
 	}
 	
+	/**
+	 * Gets the phone number.
+	 *
+	 * @param contactID the contact ID
+	 * @param tipo the tipo
+	 * @return the phone number
+	 */
 	public ResultSet getPhoneNumber(int contactID, String tipo) {
 		
 		try {
@@ -45,6 +67,12 @@ public class DAOcontatto {
 		return result;
 	}
 	
+	/**
+	 * Cerca indirizzi.
+	 *
+	 * @param contactID the contact ID
+	 * @return the result set
+	 */
 	public ResultSet cercaIndirizzi(int contactID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -60,6 +88,12 @@ public class DAOcontatto {
 		return result;
 	}
 	
+	/**
+	 * Cerca numeri tel.
+	 *
+	 * @param contactID the contact ID
+	 * @return the result set
+	 */
 	public ResultSet cercaNumeriTel(int contactID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -75,6 +109,12 @@ public class DAOcontatto {
 		return result;
 	}
 	
+	/**
+	 * Cerca email.
+	 *
+	 * @param contactID the contact ID
+	 * @return the result set
+	 */
 	public ResultSet cercaEmail(int contactID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -90,6 +130,17 @@ public class DAOcontatto {
 		return result;
 	}
 	
+	/**
+	 * Inserisci contatto.
+	 *
+	 * @param userEmail the user email
+	 * @param nome the nome
+	 * @param cognome the cognome
+	 * @param profilePic the profile pic
+	 * @param fav the fav
+	 * @return the result set
+	 * @throws SQLException the SQL exception
+	 */
 	public ResultSet inserisciContatto(String userEmail, String nome, String cognome, String profilePic, Boolean fav) throws SQLException {
 		
 		conn = ConnessionePG.getInstance().getConnection();
@@ -102,6 +153,11 @@ public class DAOcontatto {
 		return result;
 	}
 	
+	/**
+	 * Elimina contatto.
+	 *
+	 * @param ID the id
+	 */
 	public void eliminaContatto(int ID) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -114,6 +170,14 @@ public class DAOcontatto {
 		}
 	}
 	
+	/**
+	 * Inserisci phone number.
+	 *
+	 * @param type the type
+	 * @param numero the numero
+	 * @param linkednumber the linkednumber
+	 * @throws SQLException the SQL exception
+	 */
 	public void inserisciPhoneNumber(String type, String numero, Boolean linkednumber) throws SQLException {
 		conn = ConnessionePG.getInstance().getConnection();
 		PreparedStatement queryInserisciPhoneNumber = conn.prepareStatement(
@@ -123,6 +187,13 @@ public class DAOcontatto {
 		conn.close();
 	}
 	
+	/**
+	 * Inserisci assigned phone.
+	 *
+	 * @param numero the numero
+	 * @param contactID the contact ID
+	 * @throws SQLException the SQL exception
+	 */
 	public void inserisciAssignedPhone(String numero, int contactID) throws SQLException {
 		
 		conn = ConnessionePG.getInstance().getConnection();
@@ -132,6 +203,11 @@ public class DAOcontatto {
 		conn.close();
 	}
 	
+	/**
+	 * Elimina phone number.
+	 *
+	 * @param number the number
+	 */
 	public void eliminaPhoneNumber(String number) {
 		try {
 			conn = ConnessionePG.getInstance().getConnection();
@@ -144,6 +220,14 @@ public class DAOcontatto {
 		}
 	}
 	
+	/**
+	 * Inserisci email.
+	 *
+	 * @param email the email
+	 * @param main the main
+	 * @param contactID the contact ID
+	 * @throws SQLException the SQL exception
+	 */
 	public void inserisciEmail(String email, Boolean main, int contactID) throws SQLException {
 		conn = ConnessionePG.getInstance().getConnection();
 		PreparedStatement queryInserisciEmail = conn.prepareStatement(
@@ -153,6 +237,16 @@ public class DAOcontatto {
 		conn.close();
 	}
 	
+	/**
+	 * Inserisci address.
+	 *
+	 * @param street the street
+	 * @param cap the cap
+	 * @param citta the citta
+	 * @param province the province
+	 * @param naz the naz
+	 * @throws SQLException the SQL exception
+	 */
 	public void inserisciAddress(String street, String cap, String citta, String province, String naz) throws SQLException {
 		
 		conn = ConnessionePG.getInstance().getConnection();
@@ -163,6 +257,15 @@ public class DAOcontatto {
 		conn.close();
 	}
 	
+	/**
+	 * Inserisci assigned address.
+	 *
+	 * @param contactID the contact ID
+	 * @param street the street
+	 * @param cap the cap
+	 * @param main the main
+	 * @throws SQLException the SQL exception
+	 */
 	public void inserisciAssignedAddress(int contactID, String street, String cap, Boolean main) throws SQLException {
 		
 		conn = ConnessionePG.getInstance().getConnection();
@@ -173,6 +276,12 @@ public class DAOcontatto {
 		conn.close();
 	}
 	
+	/**
+	 * Elimina address.
+	 *
+	 * @param street the street
+	 * @param cap the cap
+	 */
 	public void eliminaAddress(String street, String cap) {
 		
 		try {
@@ -186,6 +295,12 @@ public class DAOcontatto {
 		}
 	}
 	
+	/**
+	 * Cerca phone number.
+	 *
+	 * @param number the number
+	 * @return the result set
+	 */
 	public ResultSet cercaPhoneNumber(String number) {
 		
 		try {
@@ -200,6 +315,13 @@ public class DAOcontatto {
 		return result;
 	}
 	
+/**
+ * Cerca address.
+ *
+ * @param street the street
+ * @param cap the cap
+ * @return the result set
+ */
 public ResultSet cercaAddress(String street, String cap) {
 		
 		try {
