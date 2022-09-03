@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"Modello","c":"MessagingAccount","l":"MessagingAccount(String, String, String)","u":"%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String)"},{"p":"Modello","c":"MessagingAccount","l":"toString()"}];updateSearchResults();
