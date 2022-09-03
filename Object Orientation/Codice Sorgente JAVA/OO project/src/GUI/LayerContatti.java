@@ -121,10 +121,9 @@ public class LayerContatti extends JPanel {
 			showPanel.repaint();
 			showPanel.revalidate();
 			controller.eliminaContatto(selectedLabel.con.getID());
-			int index = utente.contatti.indexOf(selectedLabel.con);
 			for(Gruppo grp : selectedLabel.con.getGruppi())
-				grp.getPartecipanti().remove(index);
-			utente.contatti.remove(index);
+				grp.getPartecipanti().remove(selectedLabel.con);
+			utente.contatti.remove(selectedLabel.con);
 			eliminaButton.setEnabled(false);
 			modificaButton.setEnabled(false);
 			showFiltered();

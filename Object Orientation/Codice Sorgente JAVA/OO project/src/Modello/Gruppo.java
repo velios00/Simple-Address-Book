@@ -126,7 +126,7 @@ public class Gruppo {
 	 * @param newDesc the new desc
 	 */
 	public void setDesc(String newDesc) {
-			nome = newDesc;
+			descrizione = newDesc;
 	}
 	
 	/**
