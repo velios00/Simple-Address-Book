@@ -2,7 +2,7 @@ package Modello;
 
 // TODO: Auto-generated Javadoc
 /**
- * Rappresenta un numero di telefono associato ad un contatto
+ * Rappresenta un numero di telefono associato ad un contatto.
  */
 public class NumeriTel {
 
@@ -46,6 +46,11 @@ public class NumeriTel {
 		return tipo;
 	}
 	
+	/**
+	 * If linked.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean ifLinked() {
 		return reindirizzamento;
 	}

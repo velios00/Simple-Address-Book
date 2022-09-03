@@ -2,7 +2,7 @@ package Modello;
 
 // TODO: Auto-generated Javadoc
 /**
- * Descrive un eventuale account di messaging collegato alla e-mail del contatto
+ * Descrive un eventuale account di messaging collegato alla e-mail del contatto.
  */
 public class MessagingAccount {
 	
@@ -28,6 +28,11 @@ public class MessagingAccount {
 		stato = status;
 	}
 	
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	public String toString() {
 		return supplierName+": "+nickName+ " - " + stato;
 	}

@@ -157,19 +157,31 @@ public class JContactLabel extends JPanel implements MouseListener{
 		landlineLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
 		landlineLabel.setVerticalAlignment(JLabel.TOP);
 		for(NumeriTel tel : con.numeri) {
+			boolean linkedM = false, linkedL = false;
 			if(tel.getType().equals("MOBILE"))
 			{
 				if(tel.ifLinked())
+				{
 					mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"*<br/>");
+					linkedM = true;
+				}
 				else
 					mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"<br/>");
+				if(linkedM)
+					mobileLabel.setText(mobileLabel.getText()+"*numero di reindirizzamento");
 			}
 			else
 			{
 				if(tel.ifLinked())
+				{
 					landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"*<br/>");
+					linkedL = true;
+				}
+					
 				else
 					landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"<br/>");
+				if(linkedL)
+					landlineLabel.setText(landlineLabel.getText()+"*numero di reindirizzamento");
 			}
 		}
 		mobileLabel.setText(mobileLabel.getText()+"</html>");

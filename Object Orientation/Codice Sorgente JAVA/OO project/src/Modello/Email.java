@@ -11,9 +11,7 @@ import Controller.Controller;
  */
 public class Email {
 
-	/** stringa contenente
-l’indirizzo di posta
-elettronica. */
+	/** stringa contenente l’indirizzo di posta elettronica. */
 	String email;
 	
 	/** indica se è l’e-mail principale del contatto. */
@@ -67,7 +65,11 @@ elettronica. */
 	public boolean main() {
 		return main;
 	}
-	
+	/**
+	 * Gets the messaging.
+	 *
+	 * @return the messaging
+	 */
 	public ArrayList<MessagingAccount> getMessaging() {
 		return messaging;
 	}
