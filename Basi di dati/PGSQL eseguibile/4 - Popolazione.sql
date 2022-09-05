@@ -3,26 +3,26 @@ INSERT INTO R_USER VALUES ('simoneveniero00@gmail.com', 'simone00', 'velios', NU
 ('gianmarcolembo@gmail.com', 'password', 'mandr96', NULL);
 
 --Contatti
-INSERT INTO CONTACT VALUES (1, 'GIANMARCO', 'LEMBO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(2, 'TERESA', 'BUONAIUTO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(3, 'VALERIO', 'LUNDINI', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(4, 'Marco', 'Pastore', DEFAULT, TRUE, 'gianmarcolembo@gmail.com'),
-(5, 'Alfredo', 'Laino', DEFAULT, FALSE, 'gianmarcolembo@gmail.com'),
-(6, 'LAPIPI', 'MISCAPPA', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(7, 'BENITO', 'BECCOLINI', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(8, 'NOHICANI', 'MISCAPPA', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(9, 'PIETRO', 'SMUSI', 'DEFAULT', TRUE, 'simoneveniero00@gmail.com'),
-(10, 'ILARIA', 'SMUSI', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(11, 'UKATSU', 'MEKAGATU', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(12, 'UKATSU', 'BUTTUNATSU', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(13, 'ASSUNTA', 'CAPUOZZO', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(14, 'ALFONSO', 'CUSANO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(15, 'BENEDETTA', 'CUSANO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(16, 'ANNA', 'CUSANO', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(17, 'LUXANNA', 'CROWNGUARD', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(18, 'GAREN', 'CROWNGUARD', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
-(19, 'CLOUD', 'STRIFE', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
-(20, 'TIFA', 'LOCKHART', DEFAULT, FALSE, 'simoneveniero00@gmail.com');
+INSERT INTO CONTACT VALUES (DEFAULT, 'GIANMARCO', 'LEMBO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'TERESA', 'BUONAIUTO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'VALERIO', 'LUNDINI', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'Marco', 'Pastore', DEFAULT, TRUE, 'gianmarcolembo@gmail.com'),
+(DEFAULT, 'Alfredo', 'Laino', DEFAULT, FALSE, 'gianmarcolembo@gmail.com'),
+(DEFAULT, 'LAPIPI', 'MISCAPPA', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'BENITO', 'BECCOLINI', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'NOHICANI', 'MISCAPPA', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'PIETRO', 'SMUSI', 'DEFAULT', TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ILARIA', 'SMUSI', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'UKATSU', 'MEKAGATU', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'UKATSU', 'BUTTUNATSU', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ASSUNTA', 'CAPUOZZO', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ALFONSO', 'CUSANO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'BENEDETTA', 'CUSANO', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ANNA', 'CUSANO', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'LUXANNA', 'CROWNGUARD', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'GAREN', 'CROWNGUARD', DEFAULT, TRUE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'CLOUD', 'STRIFE', DEFAULT, FALSE, 'simoneveniero00@gmail.com'),
+(DEFAULT, 'TIFA', 'LOCKHART', DEFAULT, FALSE, 'simoneveniero00@gmail.com');
 
 --Numeri telefonici
 INSERT INTO PHONENUMBER VALUES ('MOBILE', '3457541235', FALSE), 
@@ -200,9 +200,9 @@ INSERT INTO ASSIGNEDADDRESS VALUES (1, 'VIA ROMA 32', '80054', TRUE),
 (20, 'VIA ROMA 10', '80054', TRUE);
 
 --Gruppi
-INSERT INTO R_GROUP VALUES (1, 'I PIPONI', '2022-03-23', 'Il gruppo dei piponi della VA', 'simoneveniero00@gmail.com'),
-(2, 'I CRIMINALI', '2022-01-10', 'Gruppo di uscite', 'simoneveniero00@gmail.com'),
-(3, 'Univerità', '2020-10-10', 'Gruppo di studio', 'gianmarcolembo@gmail.com');
+INSERT INTO R_GROUP VALUES (DEFAULT, 'I PIPONI', '2022-03-23', 'Il gruppo dei piponi della VA', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'I CRIMINALI', '2022-01-10', 'Gruppo di uscite', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'Univerità', '2020-10-10', 'Gruppo di studio', 'gianmarcolembo@gmail.com');
 
 --Partecipanti a gruppi
 INSERT INTO PARTICIPANT VALUES (2, 1, '2022-03-23'),
@@ -221,14 +221,14 @@ INSERT INTO PARTICIPANT VALUES (2, 1, '2022-03-23'),
 (3, 5, '2021-09-27');
 
 --Chiamate
-INSERT INTO PHONECALL VALUES (1, 'ENTERED', '2022-03-12 14:55:28', '0818598232', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
-(2, 'SENT', '2022-07-15 12:30:15', '0818373010', '00:03:06', 'default', 'simoneveniero00@gmail.com'),
-(3, 'ENTERED', '2022-01-01 00:16:32', '3925921039', '00:01:45', 'default', 'simoneveniero00@gmail.com'),
-(4, 'SENT', '2022-02-28 17:36:02', '3950234012', '00:00:26', 'default', 'simoneveniero00@gmail.com'),
-(5, 'MISSED', '2022-02-28 16:57:47', '3950234012', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
-(6, 'ENTERED', '2022-05-05 11:05:59', '3343795144', '00:01:24', 'default', 'simoneveniero00@gmail.com'),
-(7, 'ENTERED', '2022-04-01 22:15:45', '0812394503', '00:00:41', 'default', 'simoneveniero00@gmail.com'),
-(8, 'SENT', '2021-10-31 21:20:00', '3215486211', '00:06:06', 'default', 'simoneveniero00@gmail.com'),
-(9, 'MISSED', '2022-06-02 18:45:57', '3290741949', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
-(10, 'ENTERED', '2022-03-21 09:35:42', '3913219521', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
-(11, 'SENT', '2022-07-11 12:30:15', '3511065999', '00:01:11', 'default', 'gianmarcolembo@gmail.com');
+INSERT INTO PHONECALL VALUES (DEFAULT, 'ENTERED', '2022-03-12 14:55:28', '0818598232', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'SENT', '2022-07-15 12:30:15', '0818373010', '00:03:06', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ENTERED', '2022-01-01 00:16:32', '3925921039', '00:01:45', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'SENT', '2022-02-28 17:36:02', '3950234012', '00:00:26', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'MISSED', '2022-02-28 16:57:47', '3950234012', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ENTERED', '2022-05-05 11:05:59', '3343795144', '00:01:24', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ENTERED', '2022-04-01 22:15:45', '0812394503', '00:00:41', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'SENT', '2021-10-31 21:20:00', '3215486211', '00:06:06', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'MISSED', '2022-06-02 18:45:57', '3290741949', '00:00:00', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'ENTERED', '2022-03-21 09:35:42', '3913219521', '00:02:15', 'default', 'simoneveniero00@gmail.com'),
+(DEFAULT, 'SENT', '2022-07-11 12:30:15', '3511065999', '00:01:11', 'default', 'gianmarcolembo@gmail.com');
