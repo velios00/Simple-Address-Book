@@ -123,6 +123,7 @@ public class LayerGruppi extends JPanel {
 			buttonAddContact.addActionListener(e -> addConGrpMet());
 			ArrayList<Contatto> GroupList = (ArrayList<Contatto>) selectedGrp.getPartecipanti().clone();
 			addConGrpBox.removeAllItems();
+			addConGrpBox.addItem(null);
 			 for(Contatto contatto1 : utentex.contatti) {
 				 if(!GroupList.contains(contatto1))
 				 addConGrpBox.addItem(contatto1);
@@ -132,6 +133,7 @@ public class LayerGruppi extends JPanel {
 			removeConGrpBox = new JComboBox();
 			buttonRemoveContact.addActionListener( e-> remConGrpMet());
 			removeConGrpBox.removeAllItems();
+			removeConGrpBox.addItem(null);
 			for(Contatto contatto1 : utentex.contatti) {
 				 if(GroupList.contains(contatto1))
 				 removeConGrpBox.addItem(contatto1);

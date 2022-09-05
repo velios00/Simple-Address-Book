@@ -393,32 +393,33 @@ public class Controller {
 	 */
 	public ArrayList<Contatto> searchContactList(ArrayList<Contatto> contactList, String str) {
 		
+		
 		ArrayList<Contatto> tmpList = new ArrayList<Contatto>();
 		for(Contatto con : contactList)
 			if(con.getName().toLowerCase().contains(str.toLowerCase())) {
 				tmpList.add(con);
-				break;
+				
 			}
 		for(Contatto con : contactList) 
-			if(con.getSurname().toLowerCase().contains(str.toLowerCase())) {
+			if(!tmpList.contains(con) && con.getSurname().toLowerCase().contains(str.toLowerCase())) {
 				tmpList.add(con);
-				break;
+				
 			}
 		for(Contatto con : contactList)
 			for(NumeriTel tel : con.numeri)
-				if(tel.getNumber().toLowerCase().contains(str.toLowerCase())) {
+				if(!tmpList.contains(con) && tel.getNumber().toLowerCase().contains(str.toLowerCase())) {
 					tmpList.add(con);
-					break;
+					
 				}
 		for(Contatto con : contactList)
 			for(Email e : con.emails)
-				if(e.getString().toLowerCase().contains(str.toLowerCase())) {
+				if(!tmpList.contains(con) && e.getString().toLowerCase().contains(str.toLowerCase())) {
 					tmpList.add(con);
-					break;
+					
 				}
 		for(Contatto con : contactList)
 			for(Indirizzo ind : con.indirizzi)
-				if(ind.getString().toLowerCase().contains(str.toLowerCase()))
+				if(!tmpList.contains(con) && ind.getString().toLowerCase().contains(str.toLowerCase()))
 					tmpList.add(con);
 		return tmpList;
 	}
