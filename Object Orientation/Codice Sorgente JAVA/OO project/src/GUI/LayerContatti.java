@@ -82,7 +82,9 @@ public class LayerContatti extends JPanel {
 		modificaButton = new JButton("Modifica");
 		eliminaButton.addActionListener(e -> eliminaContatto());
 		eliminaButton.setEnabled(false);
+		modificaButton.addActionListener(e -> modificaContatto());
 		modificaButton.setEnabled(false);
+
 		
 		topPanel.setBackground(new Color(200, 200, 200));
 		topPanel.setPreferredSize(new Dimension(100, 50));
@@ -112,21 +114,26 @@ public class LayerContatti extends JPanel {
 		new AddContatto(controller, utente, this);
 	}
 	
+	public void modificaContatto() {
+		if(selectedLabel != null)
+		{
+			new ModificaContatto(controller, utente, this, selectedLabel.con);
+			showPanel.removeAll();
+			showPanel.repaint();
+			showPanel.revalidate();
+			eliminaButton.setEnabled(false);
+			modificaButton.setEnabled(false);
+			showFiltered();
+		}
+		showFiltered();
+	}
+	
 	/**
 	 * Elimina contatto.
 	 */
 	public void eliminaContatto() {
 		if(selectedLabel != null && JOptionPane.showConfirmDialog(null, "Eliminare il contatto?", "Conferma operazione", JOptionPane.YES_NO_OPTION) == 0) {
-			showPanel.removeAll();
-			showPanel.repaint();
-			showPanel.revalidate();
-			controller.eliminaContatto(selectedLabel.con.getID());
-			for(Gruppo grp : selectedLabel.con.getGruppi())
-				grp.getPartecipanti().remove(selectedLabel.con);
-			utente.contatti.remove(selectedLabel.con);
-			eliminaButton.setEnabled(false);
-			modificaButton.setEnabled(false);
-			showFiltered();
+			
 		}
 	}
 	

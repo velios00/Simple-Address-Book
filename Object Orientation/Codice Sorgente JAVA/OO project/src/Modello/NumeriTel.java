@@ -54,4 +54,8 @@ public class NumeriTel {
 	public boolean ifLinked() {
 		return reindirizzamento;
 	}
+	
+	public void setLinked(boolean b) {
+		reindirizzamento = b;
+	}
 }

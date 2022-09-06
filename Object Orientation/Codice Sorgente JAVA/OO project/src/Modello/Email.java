@@ -65,6 +65,10 @@ public class Email {
 	public boolean main() {
 		return main;
 	}
+	
+	public void setMain(boolean b) {
+		main = b;
+	}
 	/**
 	 * Gets the messaging.
 	 *

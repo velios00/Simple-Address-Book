@@ -196,4 +196,16 @@ public class Contatto {
 	public int getID() {
 		return contactID;
 	}
+	
+	public ArrayList<Email> getEmails() {
+		return emails;
+	}
+	
+	public ArrayList<Indirizzo> getAddress() {
+		return indirizzi;
+	}
+	
+	public ArrayList<NumeriTel> getNumeriTel(){
+		return numeri;
+	}
 }

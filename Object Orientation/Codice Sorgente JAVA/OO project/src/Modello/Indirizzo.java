@@ -49,6 +49,22 @@ public class Indirizzo {
 	 * @return the string
 	 */
 	public String getString() {
-		return new String("<html>"+strada+"<br/>"+CAP+", "+citta+" ("+provincia+")"+"<br/>"+nazione+"</html>");
+		return new String("<html>"+strada+"<br/>"+CAP+" "+citta+" ("+provincia+")"+"<br/>"+nazione+"</html>");
+	}
+	
+	public String getStrada() {
+		return strada;
+	}
+	public String getCAP() {
+		return CAP;
+	}
+	public String getCitta() {
+		return citta;
+	}
+	public String getProvince() {
+	 return provincia;
+	}
+	public String getNaz() {
+		return nazione;
 	}
 }

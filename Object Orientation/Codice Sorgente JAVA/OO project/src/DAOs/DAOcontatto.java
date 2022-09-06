@@ -335,5 +335,62 @@ public ResultSet cercaAddress(String street, String cap) {
 		}
 		return result;
 	}
+
+public ResultSet cercaEmail(String email) {
+	try {
+		conn = ConnessionePG.getInstance().getConnection();
+		PreparedStatement queryCercaEmail = conn.prepareStatement("SELECT * FROM email WHERE email = '"+email+"'");
+		System.out.println(queryCercaEmail);
+		result = queryCercaEmail.executeQuery();
+		conn.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return result;
+}
+
+public void setContactEmail(String email, int contactID) {
+	try {
+		conn = ConnessionePG.getInstance().getConnection();
+		PreparedStatement querySetEmail = conn.prepareStatement("UPDATE Email SET contactID = "+contactID+" WHERE email = '"+email+"'");
+		System.out.println(querySetEmail);
+		querySetEmail.executeUpdate();
+		conn.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
+
+public void setMainEmail(String email, boolean b) {
+	try {
+		conn = ConnessionePG.getInstance().getConnection();
+		PreparedStatement querySetMain;
+		if(b)
+			querySetMain = conn.prepareStatement("UPDATE Email SET main = true WHERE email = '"+email+"'");
+		else
+			querySetMain = conn.prepareStatement("UPDATE Email SET main = false WHERE email = '"+email+"'");
+		System.out.println(querySetMain);
+		querySetMain.executeUpdate();
+		conn.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
+
+	public void setLinked(String number, boolean b) {
+		try {
+			conn = ConnessionePG.getInstance().getConnection();
+			PreparedStatement querySetLinked;
+			if(b)
+				querySetLinked = conn.prepareStatement("UPDATE PhoneNumber SET linkednumber = true WHERE phoneNumber = '"+number+"'");
+			else
+				querySetLinked = conn.prepareStatement("UPDATE PhoneNumber SET linkednumber = false WHERE phoneNumber = '"+number+"'");
+			System.out.println(querySetLinked);
+			querySetLinked.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
 

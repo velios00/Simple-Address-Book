@@ -377,9 +377,21 @@ public class Controller {
 	 * @throws SQLException SQL exception
 	 */
 	public Email aggiungiEmail(String email, Boolean main, int contactID) throws SQLException {
-
-		new DAOcontatto().inserisciEmail(email, main, contactID);
-		return new Email(this, email, main.toString());
+		
+		Email em;
+		DAOcontatto dao = new DAOcontatto();
+		ResultSet result = dao.cercaEmail(email);
+		if(result.next())
+		{
+			em = new Email(this, result.getString(1), result.getString(2));
+			dao.setContactEmail(email, contactID);
+		}
+		else
+		{
+			em = new Email(this, email, main.toString());
+			dao.inserisciEmail(email, main, contactID);
+		}
+		return em;
 	}
 	
 	/**
@@ -494,5 +506,15 @@ public class Controller {
 		gruppo1.setName(nomeGruppo);
 		gruppo1.setDesc(descrizioneGruppo);
 		new DAOgruppo().modificaGruppoDb(gruppo1.getName(), gruppo1.getDesc(), gruppo1.getID());
+	}
+	
+	public void setMainEmail(Email em, boolean b) {
+		em.setMain(b);
+		new DAOcontatto().setMainEmail(em.getEmail(), b);
+	}
+	
+	public void setLinked(NumeriTel tel, boolean b) {
+		tel.setLinked(b);
+		new DAOcontatto().setLinked(tel.getNumber(), b);
 	}
 }

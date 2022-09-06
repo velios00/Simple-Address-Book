@@ -168,7 +168,7 @@ public class JContactLabel extends JPanel implements MouseListener{
 				else
 					mobileLabel.setText(mobileLabel.getText()+tel.getNumber()+"<br/>");
 				if(linkedM)
-					mobileLabel.setText(mobileLabel.getText()+"*numero di reindirizzamento");
+					mobileLabel.setText(mobileLabel.getText()+"*numero di reindirizzamento<br/>");
 			}
 			else
 			{
@@ -181,7 +181,7 @@ public class JContactLabel extends JPanel implements MouseListener{
 				else
 					landlineLabel.setText(landlineLabel.getText()+tel.getNumber()+"<br/>");
 				if(linkedL)
-					landlineLabel.setText(landlineLabel.getText()+"*numero di reindirizzamento");
+					landlineLabel.setText(landlineLabel.getText()+"*numero di reindirizzamento<br/>");
 			}
 		}
 		mobileLabel.setText(mobileLabel.getText()+"</html>");
