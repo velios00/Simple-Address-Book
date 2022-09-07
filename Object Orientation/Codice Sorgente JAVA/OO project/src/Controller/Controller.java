@@ -111,6 +111,7 @@ public class Controller {
 	 * Trova nel database ed inizializza tutti i {@link Gruppo} associati ad un {@link Utente} tramite l'email.
 	 *
 	 * @param user utente a cui sono associati i gruppi da caricare.
+	 * @param email the email
 	 * @return array list dei gruppi dell'utente
 	 * @throws SQLException SQL exception
 	 */
@@ -162,7 +163,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti i {@link NumeriTel} appartenenti ad un {@link Contatto} tramite l'ID
+	 * Trova nel database ed inizializza tutti i {@link NumeriTel} appartenenti ad un {@link Contatto} tramite l'ID.
 	 *
 	 * @param contactID ID del contatto a cui sono associati i numeri da caricare.
 	 * @return array list dei numeri di telefono appartenenti al contatto.
@@ -180,7 +181,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutte le {@link Email} appartenenti ad un {@link Contatto}
+	 * Trova nel database ed inizializza tutte le {@link Email} appartenenti ad un {@link Contatto}.
 	 *
 	 * @param contactID ID del contatto a cui sono associate le email da caricare.
 	 * @return array list delle email appartenenti al contatto
@@ -198,7 +199,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database ed inizializza tutti i {@link MessagingAccount} collegati ad una {@link Email}
+	 * Trova nel database ed inizializza tutti i {@link MessagingAccount} collegati ad una {@link Email}.
 	 *
 	 * @param contactEmail l'email del contatto a cui sono associati gli account di messaging
 	 * @return array list degli account di messaging collegati all'email
@@ -216,7 +217,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database la {@link Email} principale di un contatto
+	 * Trova nel database la {@link Email} principale di un contatto.
 	 *
 	 * @param contactID ID del contatto
 	 * @return l'email principale
@@ -238,7 +239,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova il {@link NumeriTel} principale di un contatto
+	 * Trova il {@link NumeriTel} principale di un contatto.
 	 *
 	 * @param contactID ID del contatto
 	 * @param tipo tipo del numero di telefono da trovare, può essere mobile o fisso
@@ -261,7 +262,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Trova nel database gli ID dei contatti partecipanti ad un gruppo
+	 * Trova nel database gli ID dei contatti partecipanti ad un gruppo.
 	 *
 	 * @param groupID ID del gruppo di cui trovare gli ID dei contatti
 	 * @return array list di {@link Integer} contenenti gli ID dei contatti
@@ -301,7 +302,8 @@ public class Controller {
 	/**
 	 * Elimina un {@link Contatto} dalla rubrica. Il metodo si occupa  di eliminare il contatto dal database.
 	 *
-	 * @param ID ID del contatto da eliminare
+	 * @param con the con
+	 * @param user the user
 	 */
 	public void eliminaContatto(Contatto con, Utente user) {
 		
@@ -487,7 +489,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Rimuove un {@link Gruppo} dalla rubrica. Il metodo si occupa anche di rimuovere il gruppo dal database.
+	 * Rimuove un {@link Gruppo} dalla rubrica. Il metodo si occupa anche di rimuovere il gruppo dal database e aggiorna i contactname delle chiamate.
 	 *
 	 * @param removingGrp il gruppo da rimuovere dalla rubrica
 	 * @param utentex utente al quale appartiene i gruppo da rimuovere
@@ -514,11 +516,23 @@ public class Controller {
 		new DAOgruppo().modificaGruppoDb(gruppo1.getName(), gruppo1.getDesc(), gruppo1.getID());
 	}
 	
+	/**
+	 * Sets the main email.
+	 *
+	 * @param em the em
+	 * @param b the b
+	 */
 	public void setMainEmail(Email em, boolean b) {
 		em.setMain(b);
 		new DAOcontatto().setMainEmail(em.getEmail(), b);
 	}
 	
+	/**
+	 * Sets the linked.
+	 *
+	 * @param tel the tel
+	 * @param b the b
+	 */
 	public void setLinked(NumeriTel tel, boolean b) {
 		tel.setLinked(b);
 		new DAOcontatto().setLinked(tel.getNumber(), b);
