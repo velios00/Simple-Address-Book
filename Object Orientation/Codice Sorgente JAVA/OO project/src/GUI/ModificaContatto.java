@@ -32,10 +32,10 @@ import Modello.Utente;
 
 // TODO: Auto-generated Javadoc
 /**
- * Questa è la classe AddContatto, ovvero la finestra contenente l'interfaccia grafica che permette l'aggiunta di un {@link Contatto} in rubrica.
- * Contiene diversi {@link JButton}, {@link JTextField}, e {@link JCheckBox}, che acquisiscono le informazioni necessarie per la creazione del nuovo contatto.
+ * Questa e' la classe ModificaContatto, ovvero la finestra contenente l'interfaccia grafica che permette la modifica di un {@link Contatto} in rubrica.
+ * Contiene diversi {@link JButton}, {@link JTextField}, e {@link JCheckBox}, che acquisiscono le informazioni necessarie per la modifica del contatto.
  * Contiene diversi metodi che fanno interfacciare la classe con il {@link Controller}, l'{@link Utente} e il {@link LayerContatti}
- * per aggiornare l'interfaccia e gestire le modifiche alla rubrica.
+ * per aggiornare l'interfaccia e aggiornare la rubrica e il database.
  */
 public class ModificaContatto extends JFrame{
 	
@@ -105,6 +105,7 @@ public class ModificaContatto extends JFrame{
 	 * @param ctrll the ctrll
 	 * @param utente the utente
 	 * @param caller the caller
+	 * @param selectedCon the selected con
 	 */
 	ModificaContatto(Controller ctrll, Utente utente, LayerContatti caller, Contatto selectedCon){
 		
@@ -249,6 +250,7 @@ public class ModificaContatto extends JFrame{
 	 *
 	 * @param firstPanel1 the first panel 1
 	 * @param firstPanel2 the first panel 2
+	 * @param selectedCon the selected con
 	 * @return the j panel
 	 */
 	private JPanel createNumberPanel(JPanel firstPanel1, JPanel firstPanel2, Contatto selectedCon) {
@@ -336,6 +338,7 @@ public class ModificaContatto extends JFrame{
 	 *
 	 * @param larg the larg
 	 * @param lung the lung
+	 * @param text the text
 	 * @return the j text field
 	 */
 	public JTextField createTextField(int larg, int lung, String text) {
@@ -362,6 +365,12 @@ public class ModificaContatto extends JFrame{
 		return fields;
 	}
 	
+	/**
+	 * Creates the address fields.
+	 *
+	 * @param address the address
+	 * @return the array list
+	 */
 	public ArrayList<JTextField> createAddressFields(Indirizzo address){
 		
 		ArrayList<JTextField> fields = new ArrayList<JTextField>();
@@ -394,6 +403,12 @@ public class ModificaContatto extends JFrame{
 		panel.repaint();
 	}
 	
+	/**
+	 * Adds the email field.
+	 *
+	 * @param panel the panel
+	 * @param em the em
+	 */
 	private void addEmailField(JPanel panel, Email em) {
 		
 		JTextField newField = createTextField(135, 25, em.getEmail());
@@ -466,6 +481,14 @@ public class ModificaContatto extends JFrame{
 		parentPanel.repaint();
 	}
 	
+	/**
+	 * Adds the number field.
+	 *
+	 * @param parentPanel the parent panel
+	 * @param panel the panel
+	 * @param type the type
+	 * @param tel the tel
+	 */
 	private void addNumberField(JPanel parentPanel, JPanel panel, int type, NumeriTel tel) {
 		
 		JTextField newField = createTextField(100, 25, tel.getNumber());
@@ -577,6 +600,12 @@ public class ModificaContatto extends JFrame{
 		panel.repaint();
 	}
 	
+	/**
+	 * Adds the address field.
+	 *
+	 * @param panel the panel
+	 * @param address the address
+	 */
 	private void addAddressField(JPanel panel, Indirizzo address) {
 
 		JLabel streetLabel = new JLabel("Strada");
@@ -637,6 +666,8 @@ public class ModificaContatto extends JFrame{
 	
 	/**
 	 * Adds the contact.
+	 *
+	 * @param selectedCon the selected con
 	 */
 	public void modificaContact(Contatto selectedCon) {
 		
