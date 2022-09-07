@@ -133,7 +133,13 @@ public class LayerContatti extends JPanel {
 	 */
 	public void eliminaContatto() {
 		if(selectedLabel != null && JOptionPane.showConfirmDialog(null, "Eliminare il contatto?", "Conferma operazione", JOptionPane.YES_NO_OPTION) == 0) {
-			
+			showPanel.removeAll();
+			showPanel.repaint();
+			showPanel.revalidate();
+			controller.eliminaContatto(selectedLabel.con, utente);
+			eliminaButton.setEnabled(false);
+			modificaButton.setEnabled(false);
+			showFiltered();
 		}
 	}
 	

@@ -303,9 +303,15 @@ public class Controller {
 	 *
 	 * @param ID ID del contatto da eliminare
 	 */
-	public void eliminaContatto(int ID) {
+	public void eliminaContatto(Contatto con, Utente user) {
 		
-		new DAOcontatto().eliminaContatto(ID);
+		DAOcontatto dao = new DAOcontatto();
+		dao.eliminaContatto(con.getID());
+		for(NumeriTel tel : con.getNumeriTel())
+			dao.updPhonecalls(tel.getNumber(), user.email);
+		for(Gruppo grp : con.getGruppi())
+			grp.getPartecipanti().remove(con);
+		user.contatti.remove(con);
 	}
 	
 	/**

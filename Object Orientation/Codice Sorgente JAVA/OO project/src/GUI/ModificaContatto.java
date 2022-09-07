@@ -715,10 +715,7 @@ public class ModificaContatto extends JFrame{
 		
 		//ELIMINAZIONE///////////////////////////////////////////////////////////////////////////
 		ArrayList<Gruppo> conGroups = selectedCon.getGruppi();
-		controller.eliminaContatto(selectedCon.getID());
-		for(Gruppo grp : conGroups)
-			grp.getPartecipanti().remove(selectedCon);
-		user.contatti.remove(selectedCon);
+		controller.eliminaContatto(selectedCon, user);
 		this.dispose();
 		//INSERIMENTO////////////////////////////////////////////////////////////////////////////
 		nuovoCont.numeri = contNumbers;

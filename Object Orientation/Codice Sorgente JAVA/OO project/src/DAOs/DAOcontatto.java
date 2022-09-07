@@ -170,6 +170,18 @@ public class DAOcontatto {
 		}
 	}
 	
+	public void updPhonecalls(String number, String email) {
+		try {
+			conn = ConnessionePG.getInstance().getConnection();
+			PreparedStatement queryUpdPhonecalls = conn.prepareStatement("CALL updcallcontactname('"+number+"', '"+email+"')");
+			System.out.println(queryUpdPhonecalls);
+			queryUpdPhonecalls.executeUpdate();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Inserisci phone number.
 	 *
